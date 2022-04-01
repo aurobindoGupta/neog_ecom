@@ -1,0 +1,121 @@
+.homePg{
+  height: 100%;
+}
+.baseContainer {
+    max-width: 100%;
+    background: var(--background-color);
+    overflow: scroll;
+  }
+  .navBar {
+    padding: 0.2rem 10.313rem;
+    align-items: center;
+    background: var(--stdWhite-color);
+    min-width: 50rem;
+  }
+  .heroTitle{
+    cursor: pointer;
+  }
+  .pageContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0.2rem 10.313rem;
+    margin-top: 2rem;
+    height: 100%;
+    
+  }
+  
+  .navLinksBtn .btn.btn-secondary{
+    padding: 0.5rem 1.5rem;
+  }
+  .navLinksBtn .btn.btn-secondary.logout{
+    padding: 0.2rem 1.5rem;
+  }
+  .navBar-searchBar {
+    width: 40%;
+  }
+  .navBar-searchBar .searchBar {
+    display: flex;
+    width: 100%;
+    border-radius: 0.3rem;
+  }
+  .navBar-searchBar .searchBar-input {
+    width: 100%;
+    height: 1.5rem;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+  }
+  
+  .navLinksBtn:hover {
+    background: none;
+  }
+  .navLinksBtn .btn {
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+  }
+  .top-preview {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+  }
+  .preview-card.style1 {
+    padding: 1rem;
+    max-width: 17.875rem;
+   
+  }
+  .style1-group {
+    position: relative;
+  }
+  
+  .style1-group .preview-card-title {
+    background: var(--stdWhite-color);
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    width: 100%;
+  }
+  .center-preview {
+    max-width: 100%;
+    max-height: 20rem;
+    flex-grow: 5;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .center-img-container {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .bottom-preview {
+    flex-grow: 2;
+    display: flex;
+    margin: 1rem;
+  }
+  .bottom-container{
+      background: var(--primary-color);
+      padding: 0.2rem;
+      margin: 0.2rem;
+      display: flex;
+      height: 80%;
+      border-radius: 0.2rem;
+  }
+  .bottom-container-card{
+      display: flex;
+      align-items: center;
+      padding: 1.5rem;
+      height: 80%;
+      
+  }
+  .bottom-container-card img{
+      max-width: 30%;
+      background: var(--stdWhite-color);
+      margin: 1rem;
+  }
+  .card-context{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+  }
+  .log-btn{
+    padding: 0rem 1rem;
+  }
