@@ -72,7 +72,6 @@
 .product-list {
   display: flex;
   height: 100%;
-  overflow: scroll;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
