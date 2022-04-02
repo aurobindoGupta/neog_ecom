@@ -2,53 +2,15 @@ import "./homePg.css";
 import productRectangle1 from "../utils/images/productRectangle1.png";
 import homepg_centre from "../utils/images/homepg_centre.png";
 import image_1 from "../utils/images/image_1.png";
+import NavBar from "../Components/navbar/NavBar";
+import {default as BottomCard} from "../Components/bottom_card/Bottom_Card";
 const HomePg = () => {
   return (
     <div className="homePg">
       {/* <!-- ................BASE CONTAINER............. --> */}
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
-
-        <nav className="navBar">
-          <div className="heroContainer">
-            <p className="heroTitle" onclick="window.location.href='/'">
-              MyWebsite
-            </p>
-          </div>
-          <div className="navBar-searchBar">
-            <form className="searchBar">
-              <input className="searchBar-input" placeholder="Search" />
-            </form>
-          </div>
-          <ul className="navLinks">
-            <li className="navLinksBtn">
-              <button
-                className="btn btn-secondary"
-                onclick="window.location.href='/components/loginPg/index.html'"
-              >
-                Login
-              </button>
-            </li>
-            <li
-              className="navLinksBtn"
-              onclick="window.location.href='/components/wishListPg/index.html'"
-            >
-              <div className="ic-badge container">
-                <i className="fa fa-heart ic"></i>
-                <div className="iconBadge">3</div>
-              </div>
-            </li>
-            <li
-              className="navLinksBtn"
-              onclick="window.location.href='/components/cartPg/index.html'"
-            >
-              <div className="ic-badge Container">
-                <i className="fa fa-shopping-cart ic"></i>
-                <div className="iconBadge">0</div>
-              </div>
-            </li>
-          </ul>
-        </nav>
+        <NavBar />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
@@ -112,38 +74,20 @@ const HomePg = () => {
           </div>
           <div className="bottom-preview">
             <div className="bottom-container">
-              <div className="bottom-container-card">
-                <img src={image_1} alt="product" />
-                <div className="card-context">
-                  <p className="card-badge">New Arival</p>
-                  <div className="card-details">
-                    <p className="card-title fw-semiBold fs-M">
-                      Summer Collection
-                    </p>
-                    <p className="card-product-summary">
-                      Check out our best winter collection to stay warm in style
-                      this season
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <BottomCard
+                pic={image_1}
+                cardBadge="New Arival"
+                cardTitle="Summer Collection"
+                cardProductSummary=" Check out our best Summer collection to stay warm in style this season."
+              />
             </div>
             <div className="bottom-container">
-              <div className="bottom-container-card">
-                <img src={image_1} alt="product" />
-                <div className="card-context">
-                  <p className="card-badge">New Arival</p>
-                  <div className="card-details">
-                    <p className="card-title fw-semiBold fs-M">
-                      Summer Collection
-                    </p>
-                    <p className="card-product-summary">
-                      Check out our best winter collection to stay warm in style
-                      this season
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <BottomCard
+                pic={image_1}
+                cardBadge="New Arival"
+                cardTitle="Winter Collection"
+                cardProductSummary=" Check out our best winter collection to stay warm in style this season."
+              />
             </div>
           </div>
         </div>
