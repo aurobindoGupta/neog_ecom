@@ -1,9 +1,9 @@
 import "./homePg.css";
-import productRectangle1 from "../utils/images/productRectangle1.png";
-import homepg_centre from "../utils/images/homepg_centre.png";
-import image_1 from "../utils/images/image_1.png";
-import NavBar from "../Components/navbar/NavBar";
-import {default as BottomCard} from "../Components/bottom_card/Bottom_Card";
+import productRectangle1 from "../../utils/images/productRectangle1.png";
+import homepg_centre from "../../utils/images/homepg_centre.png";
+import image_1 from "../../utils/images/image_1.png";
+import NavBar from "../../Components/navbar/NavBar";
+import {default as BottomCard} from "../../Components/bottom_card/Bottom_Card";
 const HomePg = () => {
   return (
     <div className="homePg">
