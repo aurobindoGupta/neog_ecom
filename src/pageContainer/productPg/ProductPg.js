@@ -1,4 +1,5 @@
 import NavBar from "../../Components/navbar/NavBar";
+import { default as ProductCard } from "../../Components/product_card/Product_card";
 import "./productPg.css";
 const ProductPg = () => {
   return (
@@ -7,7 +8,7 @@ const ProductPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar/>
+        <NavBar />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
@@ -98,198 +99,16 @@ const ProductPg = () => {
                 <p>Showing All Products</p>
               </div>
               <div className="product-list">
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div className="indi-product">
-                  <div className="card">
-                    <div className="card-img-container">
-                      <i className="fa fa-heart-o icon-badge"></i>
-                      <img
-                        className="card-img"
-                        src="/Utils/images/image 1.png"
-                        alt="Card image"
-                      />
-                    </div>
-                    <div className="card-title">
-                      <p className="title-heading">Nike Sneakers</p>
-                      <p className="title-subHeading">Sub-title</p>
-                      <div className="price">
-                        <p className="current-price">Rs. 2500</p>
-                      </div>
-                    </div>
-                    <div className="card-button">
-                      <button className="btn btn-primary button-add">
-                        Add to Cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <ProductCard
+                  productTitle="Nike Sneakers"
+                  subTitle="Basketball Shoes"
+                  cost="2500"
+                />
+                <ProductCard
+                  productTitle="Nike Sneakers"
+                  subTitle="Basketball Shoes"
+                  cost="2500"
+                />
               </div>
             </div>
           </div>

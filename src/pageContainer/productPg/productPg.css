@@ -1,5 +1,10 @@
+.productPg{
+    width: 100%;
+}
 .baseContainer {
   overflow: scroll;
+  height: 100%;
+  width: 100%;
 }
 .page-content {
   height: 100%;
@@ -61,14 +66,6 @@
   padding: 1rem 0;
 }
 
-.indi-product {
-  width: fit-content;
-  align-items: center;
-  justify-content: space-around;
-}
-.card-img-container {
-  background: var(--primary-color);
-}
 .product-list {
   display: flex;
   height: 100%;
