@@ -1,5 +1,5 @@
 import NavBar from "../../Components/navbar/NavBar";
-import { default as ProductCard } from "../../Components/product_card/Product_card";
+import { default as ProductCard } from "../../Components/product_card/Product_Card";
 import "./productPg.css";
 const ProductPg = () => {
   return (

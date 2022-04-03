@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./product_card.css";
 
-const Product_card = ({productTitle, subTitle, cost, pic}) => {
+const Product_Card = ({productTitle, subTitle, cost, pic}) => {
   const [wishList, setWishList]= useState(false);
   return (
     <div className="indi-product">
@@ -28,4 +28,4 @@ const Product_card = ({productTitle, subTitle, cost, pic}) => {
     </div>
   );
 };
-export default Product_card;
+export default Product_Card;
