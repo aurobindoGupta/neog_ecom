@@ -1,9 +1,10 @@
 import "./homePg.css";
-import productRectangle1 from "../../utils/images/productRectangle1.png";
-import homepg_centre from "../../utils/images/homepg_centre.png";
-import image_1 from "../../utils/images/image_1.png";
+import homepg_centre from "../../utils/images/homepg_centre.webp";
+import image_1 from "../../utils/images/image_1.webp";
 import NavBar from "../../Components/navbar/NavBar";
 import {default as BottomCard} from "../../Components/bottom_card/Bottom_Card";
+import { default as TopCard } from "../../Components/top_card/Top_Card";
+
 const HomePg = () => {
   return (
     <div className="homePg">
@@ -16,56 +17,11 @@ const HomePg = () => {
 
         <div className="pageContent">
           <div className="top-preview">
-            <div className="preview-card style1">
-              <div className="style1-group">
-                <img
-                  className="preview-card-image"
-                  src={productRectangle1}
-                  alt="product"
-                />
-                <p className="preview-card-title">Men</p>
-              </div>
-            </div>
-            <div className="preview-card style1">
-              <div className="style1-group">
-                <img
-                  className="preview-card-image"
-                  src={productRectangle1}
-                  alt="product"
-                />
-                <p className="preview-card-title">Men</p>
-              </div>
-            </div>
-            <div className="preview-card style1">
-              <div className="style1-group">
-                <img
-                  className="preview-card-image"
-                  src={productRectangle1}
-                  alt="product"
-                />
-                <p className="preview-card-title">Men</p>
-              </div>
-            </div>
-            <div className="preview-card style1">
-              <div className="style1-group">
-                <img
-                  className="preview-card-image"
-                  src={productRectangle1}
-                  alt="product"
-                />
-                <p className="preview-card-title">Men</p>
-              </div>
-            </div>
-            <div className="preview-card style1">
-              <div className="style1-group">
-                <img
-                  className="preview-card-image"
-                  src={productRectangle1}
-                  alt="product"
-                />
-                <p className="preview-card-title">Men</p>
-              </div>
-            </div>
+            <TopCard />
+            <TopCard />
+            <TopCard />
+            <TopCard />
+            <TopCard />
           </div>
           <div className="center-preview">
             <div className="center-img-container">
@@ -82,7 +38,7 @@ const HomePg = () => {
               />
             </div>
             <div className="bottom-container">
-            <BottomCard
+              <BottomCard
                 pic={image_1}
                 cardBadge="New Arival"
                 cardTitle="Winter Collection"

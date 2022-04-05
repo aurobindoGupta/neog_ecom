@@ -1,0 +1,23 @@
+.preview-card.style1 {
+    padding: 1rem;
+    max-width: 17.875rem;
+   
+  }
+  .style1-group {
+    position: relative;
+  }
+  .style1-group:hover{
+    transform: scale(1.1);
+  }
+  
+  .style1-group .preview-card-title {
+    background: var(--stdWhite-color);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 45%;
+    width: 100%;
+    height: 1.5rem;
+  }

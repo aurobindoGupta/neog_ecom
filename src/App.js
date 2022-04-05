@@ -6,6 +6,7 @@ import CartPg from "./pageContainer/cartPg/CartPg";
 import WishListPg from "./pageContainer/wishlistPg/WishListPg";
 import LoginPg from "./pageContainer/loginPg/LoginPg";
 
+
 function App() {
   return (
     <div className="App">
