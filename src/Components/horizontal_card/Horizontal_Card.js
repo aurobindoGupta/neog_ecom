@@ -6,7 +6,7 @@ const Horizontal_card=({productTitle, productSubtitle, productCost, productQty }
           <img
             className="card-img card-horizontal"
             src="/Utils/images/image 1.png"
-            alt="Card image"
+            alt="Card"
           />
         </div>
         <div className="card-details card-horizontal">
