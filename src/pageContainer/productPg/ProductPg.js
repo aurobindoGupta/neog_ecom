@@ -1,9 +1,28 @@
+import { useState } from "react";
 import "./productPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
 import image_1 from "../../utils/images/image_1.webp";
 
 const ProductPg = () => {
+  const [checkFilter, setCheckFilter] = useState({ Men: false, Women: false });
+  const [sliderFilter, setSliderFilter] = useState(0);
+  const [ratingFilter, setRatingFilter] = useState("");
+  const [sortByFilter, setSortByFilter] = useState("");
+
+  const handleClearFilter = () => {
+    setCheckFilter({ Men: false, Women: false });
+    setSliderFilter(0);
+    setRatingFilter("");
+    setSortByFilter("");
+  };
+  console.log(
+    { sliderFilter },
+    { ratingFilter },
+    { checkFilter },
+    { sortByFilter }
+  );
+
   return (
     <div className="productPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -20,7 +39,12 @@ const ProductPg = () => {
             <div className="sideNav pd-25">
               <div className="sideNav-header">
                 <p className="sideNav-title fs-M fw-bold">Filters</p>
-                <button className="btn btn-link sideNavBtn">Clear</button>
+                <button
+                  className="btn btn-link sideNavBtn"
+                  onClick={handleClearFilter}
+                >
+                  Clear
+                </button>
               </div>
               <div className="sideNav-content">
                 <div className="cost-filter">
@@ -29,20 +53,21 @@ const ProductPg = () => {
                     <input
                       className="slider"
                       type="range"
-                      min="50"
-                      max="200"
-                      value="100"
+                      min="0"
+                      value={sliderFilter}
+                      max="5000"
                       list="ticks"
+                      onChange={(e) => setSliderFilter(e.target.value)}
                     />
                     <datalist id="ticks">
-                      <option value="50" label="50"></option>
-                      <option value="125" label="125"></option>
-                      <option value="200" label="200"></option>
+                      <option value="0" label="0"></option>
+                      <option value="2500" label="2500"></option>
+                      <option value="5000" label="5000"></option>
                     </datalist>
                     <div className="slider-values">
-                      <p>50</p>
-                      <p>125</p>
-                      <p>200</p>
+                      <p>0</p>
+                      <p>2500</p>
+                      <p>5000</p>
                     </div>
                   </div>
                 </div>
@@ -55,7 +80,14 @@ const ProductPg = () => {
                           type="checkbox"
                           value="Men"
                           id="option1"
+                          checked={checkFilter.Men}
                           className="labelSidenav"
+                          onChange={() =>
+                            setCheckFilter({
+                              Men: !checkFilter.Men,
+                              Women: false,
+                            })
+                          }
                         />
                         Men Clothing
                       </label>
@@ -66,7 +98,14 @@ const ProductPg = () => {
                           type="checkbox"
                           value="Women"
                           id="option2"
+                          checked={checkFilter.Women}
                           className="labelSidenav"
+                          onChange={() =>
+                            setCheckFilter({
+                              Men: false,
+                              Women: !checkFilter.Women,
+                            })
+                          }
                         />
                         Women Clothing
                       </label>
@@ -77,28 +116,52 @@ const ProductPg = () => {
                   <p className="sideNav-title fs-M fw-bold">Rating</p>
                   <div className="rating">
                     <div className="radio-1">
-                      <input type="radio" value="" id="radio-1" name="radio" className="labelSidenav" />
-                      <label  htmlFor="radio-1">
-                        4 star
-                      </label>
+                      <input
+                        type="radio"
+                        value="4-star"
+                        id="radio-1"
+                        name="radio"
+                        checked={ratingFilter === "4-star"}
+                        className="labelSidenav"
+                        onChange={(e) => setRatingFilter(e.target.value)}
+                      />
+                      <label htmlFor="radio-1">4 star</label>
                     </div>
                     <div className="radio-2">
-                      <input type="radio" value="" id="radio-2" name="radio" className="labelSidenav" />
-                      <label htmlFor="radio-2">
-                        3 star
-                      </label>
+                      <input
+                        type="radio"
+                        value="3-star"
+                        id="radio-2"
+                        name="radio"
+                        checked={ratingFilter === "3-star"}
+                        className="labelSidenav"
+                        onChange={(e) => setRatingFilter(e.target.value)}
+                      />
+                      <label htmlFor="radio-2">3 star</label>
                     </div>
                     <div className="radio-3">
-                      <input type="radio" value="" id="radio-3" name="radio"  className="labelSidenav"/>
-                      <label htmlFor="radio-3">
-                        2 star
-                      </label>
+                      <input
+                        type="radio"
+                        value="2-star"
+                        id="radio-3"
+                        name="radio"
+                        checked={ratingFilter === "2-star"}
+                        className="labelSidenav"
+                        onChange={(e) => setRatingFilter(e.target.value)}
+                      />
+                      <label htmlFor="radio-3">2 star</label>
                     </div>
                     <div className="radio-4">
-                      <input type="radio" value="" id="radio-4" name="radio" className="labelSidenav"/>
-                      <label  htmlFor="radio-4">
-                        1 star
-                      </label>
+                      <input
+                        type="radio"
+                        value="1-star"
+                        id="radio-4"
+                        name="radio"
+                        checked={ratingFilter === "1-star"}
+                        className="labelSidenav"
+                        onChange={(e) => setRatingFilter(e.target.value)}
+                      />
+                      <label htmlFor="radio-4">1 star</label>
                     </div>
                   </div>
                 </div>
@@ -106,16 +169,28 @@ const ProductPg = () => {
                   <p className="sideNav-title fs-M fw-bold">Sort By</p>
                   <div className="sortBy">
                     <div className="sort-1">
-                      <input type="radio" value="" id="sort-1" name="sort"  className="labelSidenav"/>
-                      <label htmlFor="sort-1">
-                        Price-Low to High
-                      </label>
+                      <input
+                        type="radio"
+                        value="Low-to-High"
+                        id="sort-1"
+                        name="sort"
+                        checked={sortByFilter === "Low-to-High"}
+                        className="labelSidenav"
+                        onChange={(e) => setSortByFilter(e.target.value)}
+                      />
+                      <label htmlFor="sort-1">Price-Low to High</label>
                     </div>
                     <div className="sort-2">
-                      <input type="radio" value="" id="sort-2" name="sort" className="labelSidenav" />
-                      <label  htmlFor="sort-2">
-                        Price-High to Low
-                      </label>
+                      <input
+                        type="radio"
+                        value="High-to-Low"
+                        id="sort-2"
+                        name="sort"
+                        checked={sortByFilter === "High-to-Low"}
+                        className="labelSidenav"
+                        onChange={(e) => setSortByFilter(e.target.value)}
+                      />
+                      <label htmlFor="sort-2">Price-High to Low</label>
                     </div>
                   </div>
                 </div>
@@ -124,7 +199,15 @@ const ProductPg = () => {
             {/* <!-- main Content --> */}
             <div className="main-content">
               <div className="main-content-header">
-                <p>Showing All Products</p>
+                <p>
+                  Showing All Products{" "}
+                  {sliderFilter !== 0 ? `[Below: Rs.${sliderFilter}]` : ``}
+                  {checkFilter !== { Men: false, Women: false }
+                    ? checkFilter.Men?"[Gender: Men]": checkFilter.Women?"[Gender: Women]": ''
+                    : ``}
+                  {ratingFilter!==""?`[Rating: ${ratingFilter}]` : ``}
+                  {sortByFilter!==""?`[Sorted By: ${sortByFilter}]` : ``}
+                </p>
               </div>
               <div className="product-list">
                 <ProductCard
