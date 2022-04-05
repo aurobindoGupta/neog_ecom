@@ -18,9 +18,10 @@
 .bottom-container-card:hover {
   transform: scale(0.98);
 }
-
 .btn_bottom_card{
+
   align-self: center;
   width: fit-content;
 }
+
 
