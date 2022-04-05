@@ -1,6 +1,6 @@
 import "./homePg.css";
-import homepg_centre from "../../utils/images/homepg_centre.png";
-import image_1 from "../../utils/images/image_1.png";
+import homepg_centre from "../../utils/images/homepg_centre.webp";
+import image_1 from "../../utils/images/image_1.webp";
 import NavBar from "../../Components/navbar/NavBar";
 import {default as BottomCard} from "../../Components/bottom_card/Bottom_Card";
 import { default as TopCard } from "../../Components/top_card/Top_Card";

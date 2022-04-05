@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import productRectangle1 from "../../utils/images/productRectangle1.png";
+import productRectangle1 from "../../utils/images/productRectangle1.webp";
 import "./top_card.css";
 const Top_Card = () => {
     let navigate = useNavigate();
