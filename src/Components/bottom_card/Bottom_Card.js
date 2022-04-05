@@ -19,7 +19,7 @@ const Bottom_Card = ({
             <p className="card-title fw-semiBold fs-M">{cardTitle}</p>
             <p className="card-product-summary">{cardProductSummary}</p>
           </div>
-          <button className="btn btn-primary" onClick={()=>navigate("/productPg")}>Shop</button>
+          <button className="btn btn-primary bottom_card_btn" onClick={()=>navigate("/productPg")}>Shop</button>
         </div>
       </div>
     </>
