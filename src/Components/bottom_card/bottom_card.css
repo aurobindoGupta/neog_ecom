@@ -1,0 +1,28 @@
+.bottom-container-card {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  padding: 1rem;
+  height: 80%;
+}
+.bottom-container-card img{
+    max-width: 30%;
+    background: var(--stdWhite-color);
+    margin: 1rem;
+}
+.card-context{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.bottom-container-card:hover{
+  transform: scale(0.98);
+}
+
+
+.btn{
+  align-self: center;
+  width: fit-content;
+}
+

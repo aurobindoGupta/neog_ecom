@@ -1,0 +1,39 @@
+.navBar {
+  padding: 0.2rem 10.313rem;
+  align-items: center;
+  background: var(--stdWhite-color);
+  min-width: 50rem;
+}
+.heroTitle {
+  cursor: pointer;
+}
+.navLinksBtn .btn.btn-secondary {
+  padding: 0.4rem 1.5rem;
+  border-radius: 0.2rem;
+}
+.navLinksBtn .btn.btn-secondary:hover {
+  color: var(--secondary-color);
+}
+.navLinksBtn .btn.btn-secondary.logout {
+  padding: 0.2rem 1.5rem;
+}
+.navBar-searchBar {
+  width: 40%;
+}
+.navBar-searchBar .searchBar {
+  display: flex;
+  width: 100%;
+  border-radius: 0.3rem;
+}
+.navBar-searchBar .searchBar-input {
+  width: 100%;
+  height: 1.5rem;
+  padding: 0.2rem;
+  border-radius: 0.3rem;
+}
+
+.navLinksBtn:hover {
+  background: none;
+  transform: scale(0.98);
+  font-size: 1rem;
+}
