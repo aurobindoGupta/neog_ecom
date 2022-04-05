@@ -1,6 +1,9 @@
+import "./productPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
-import "./productPg.css";
+import image_1 from "../../utils/images/image_1.webp";
+
+
 const ProductPg = () => {
   return (
     <div className="productPg">
@@ -103,11 +106,13 @@ const ProductPg = () => {
                   productTitle="Nike Sneakers"
                   subTitle="Basketball Shoes"
                   cost="2500"
+                  productImg={image_1}
                 />
                 <ProductCard
                   productTitle="Nike Sneakers"
                   subTitle="Basketball Shoes"
                   cost="2500"
+                  productImg={image_1}
                 />
               </div>
             </div>

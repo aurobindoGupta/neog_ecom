@@ -7,8 +7,9 @@
   .card-img-container.card-horizontal {
     background: var(--primary-color);
   }
-  .button-add.card-horizontal {
+  .card-button .button-add.card-horizontal {
     width: 100%;
+    border-radius: 0.5rem;
     font-size: 1.2rem;
     padding: 0;
     margin: 0.5rem 0;
