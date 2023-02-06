@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./productPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
@@ -9,6 +10,15 @@ const ProductPg = () => {
   const [sliderFilter, setSliderFilter] = useState(0);
   const [ratingFilter, setRatingFilter] = useState("");
   const [sortByFilter, setSortByFilter] = useState("");
+  const [productData, setProductData] = useState({});
+
+  useEffect(() => {
+
+      axios({
+        method:'get',
+        url:'/api/products'
+      }).then((response)=>setProductData(response.data.products))
+  }, [])
 
   const handleClearFilter = () => {
     setCheckFilter({ Men: false, Women: false });
@@ -22,7 +32,7 @@ const ProductPg = () => {
     { checkFilter },
     { sortByFilter }
   );
-
+  
   return (
     <div className="productPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -210,36 +220,19 @@ const ProductPg = () => {
                 </p>
               </div>
               <div className="product-list">
-                <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
+              {Object.values(productData).map((item,key)=>{
+                return(
+                  <ProductCard
+                  productTitle= {item.title}
+                  subTitle={item.categoryName}
+                  cost={item.price}
                   productImg={image_1}
+                  id={key}
                 />
-                <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
-                  productImg={image_1}
-                />
-                <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
-                  productImg={image_1}
-                />
-                <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
-                  productImg={image_1}
-                />
-                <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
-                  productImg={image_1}
-                />
+                )
+                
+              })}
+               
               </div>
             </div>
           </div>
