@@ -1,6 +1,6 @@
 import "./App.css";
-import HomePg from "./pageContainer/homePg/HomePg";
 import { Routes, Route } from "react-router-dom";
+import HomePg from "./pageContainer/homePg/HomePg";
 import ProductPg from "./pageContainer/productPg/ProductPg";
 import CartPg from "./pageContainer/cartPg/CartPg";
 import WishListPg from "./pageContainer/wishlistPg/WishListPg";
