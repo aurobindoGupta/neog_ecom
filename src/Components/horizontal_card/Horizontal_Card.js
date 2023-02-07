@@ -1,11 +1,14 @@
 import "./horizontal_card.css";
+
 const Horizontal_card=({productTitle, productSubtitle, productCost, productQty, productImg })=>{
+
     return(
         <div className="card card-horizontal">
         <div className="card-img-container card-horizontal">
           <img
             className="card-img card-horizontal"
             src={productImg}
+
             alt="Card"
           />
         </div>
