@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./product_card.css";
 
-const Product_Card = ({productTitle, subTitle, cost, pic}) => {
+const Product_Card = ({productTitle, subTitle, cost, productImg}) => {
   const [wishList, setWishList]= useState(false);
   return (
     <div className="indi-product">
@@ -10,7 +10,7 @@ const Product_Card = ({productTitle, subTitle, cost, pic}) => {
           <i className={`fa ${wishList?"fa-heart":"fa-heart-o"} icon-badge`} onClick={()=>setWishList(!wishList)}></i>
           <img
             className="card-img"
-            src={pic}
+            src={productImg}
             alt="Card"
           />
         </div>

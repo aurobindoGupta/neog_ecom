@@ -1,6 +1,7 @@
+import "./cartPg.css";
 import { default as HorizontalCard } from "../../Components/horizontal_card/Horizontal_Card";
 import NavBar from "../../Components/navbar/NavBar";
-import "./cartPg.css";
+import image_1 from "../../utils/images/image_1.webp";
 const CartPg = () => {
   return (
     <div className="cartPg">
@@ -20,11 +21,13 @@ const CartPg = () => {
                 productTitle="Winter Jacket"
                 productSubtitle="Sub-title"
                 productCost="Rs. 5500"
+                productImg={image_1}
               />
               <HorizontalCard
                 productTitle="Winter Jacket"
                 productSubtitle="Sub-title"
                 productCost="Rs. 5500"
+                productImg={image_1}
               />
             </div>
             <div className="bill-content">

@@ -1,6 +1,8 @@
+import "./productPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
-import "./productPg.css";
+import image_1 from "../../utils/images/image_1.webp";
+
 const ProductPg = () => {
   return (
     <div className="productPg">
@@ -48,14 +50,24 @@ const ProductPg = () => {
                   <p className="sideNav-title fs-M fw-bold">Category</p>
                   <div className="checkbox">
                     <div className="checkboxOption">
-                      <label htmlFor="option1" >
-                      <input type="checkbox" value="Men" id="option1" className="labelSidenav"/>
+                      <label htmlFor="option1">
+                        <input
+                          type="checkbox"
+                          value="Men"
+                          id="option1"
+                          className="labelSidenav"
+                        />
                         Men Clothing
                       </label>
                     </div>
                     <div className="checkboxOption">
-                      <label htmlFor="option2" >
-                      <input type="checkbox" value="Women" id="option2" className="labelSidenav"/>
+                      <label htmlFor="option2">
+                        <input
+                          type="checkbox"
+                          value="Women"
+                          id="option2"
+                          className="labelSidenav"
+                        />
                         Women Clothing
                       </label>
                     </div>
@@ -65,20 +77,28 @@ const ProductPg = () => {
                   <p className="sideNav-title fs-M fw-bold">Rating</p>
                   <div className="rating">
                     <div className="radio-1">
-                      <input type="radio" value="" id="radio-1" name="radio" />
-                      <label  className="labelSidenav" htmlFor="radio-1">4 star</label>
+                      <input type="radio" value="" id="radio-1" name="radio" className="labelSidenav" />
+                      <label  htmlFor="radio-1">
+                        4 star
+                      </label>
                     </div>
                     <div className="radio-2">
-                      <input type="radio" value="" id="radio-2" name="radio" />
-                      <label  className="labelSidenav" htmlFor="radio-2">3 star</label>
+                      <input type="radio" value="" id="radio-2" name="radio" className="labelSidenav" />
+                      <label htmlFor="radio-2">
+                        3 star
+                      </label>
                     </div>
                     <div className="radio-3">
-                      <input type="radio" value="" id="radio-3" name="radio" />
-                      <label  className="labelSidenav" htmlFor="radio-3">2 star</label>
+                      <input type="radio" value="" id="radio-3" name="radio"  className="labelSidenav"/>
+                      <label htmlFor="radio-3">
+                        2 star
+                      </label>
                     </div>
                     <div className="radio-4">
-                      <input type="radio" value="" id="radio-4" name="radio" />
-                      <label  className="labelSidenav" htmlFor="radio-4">1 star</label>
+                      <input type="radio" value="" id="radio-4" name="radio" className="labelSidenav"/>
+                      <label  htmlFor="radio-4">
+                        1 star
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -86,12 +106,16 @@ const ProductPg = () => {
                   <p className="sideNav-title fs-M fw-bold">Sort By</p>
                   <div className="sortBy">
                     <div className="sort-1">
-                      <input type="radio" value="" id="sort-1" name="sort" />
-                      <label  className="labelSidenav" htmlFor="sort-1">Price-Low to High</label>
+                      <input type="radio" value="" id="sort-1" name="sort"  className="labelSidenav"/>
+                      <label htmlFor="sort-1">
+                        Price-Low to High
+                      </label>
                     </div>
                     <div className="sort-2">
-                      <input type="radio" value="" id="sort-2" name="sort" />
-                      <label  className="labelSidenav" htmlFor="sort-2">Price-High to Low</label>
+                      <input type="radio" value="" id="sort-2" name="sort" className="labelSidenav" />
+                      <label  htmlFor="sort-2">
+                        Price-High to Low
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -107,26 +131,31 @@ const ProductPg = () => {
                   productTitle="Nike Sneakers"
                   subTitle="Basketball Shoes"
                   cost="2500"
-                />
-                 <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
-                />
-                 <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
-                />
-                 <ProductCard
-                  productTitle="Nike Sneakers"
-                  subTitle="Basketball Shoes"
-                  cost="2500"
+                  productImg={image_1}
                 />
                 <ProductCard
                   productTitle="Nike Sneakers"
                   subTitle="Basketball Shoes"
                   cost="2500"
+                  productImg={image_1}
+                />
+                <ProductCard
+                  productTitle="Nike Sneakers"
+                  subTitle="Basketball Shoes"
+                  cost="2500"
+                  productImg={image_1}
+                />
+                <ProductCard
+                  productTitle="Nike Sneakers"
+                  subTitle="Basketball Shoes"
+                  cost="2500"
+                  productImg={image_1}
+                />
+                <ProductCard
+                  productTitle="Nike Sneakers"
+                  subTitle="Basketball Shoes"
+                  cost="2500"
+                  productImg={image_1}
                 />
               </div>
             </div>

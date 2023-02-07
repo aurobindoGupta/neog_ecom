@@ -64,6 +64,8 @@
 .rating {
   display: flex;
   flex-direction: column;
+  width: fit-content;
+  align-items: flex-start;
 }
 .sideNav-title {
   padding: 1rem 0;
@@ -79,6 +81,11 @@
   margin-right: 1rem;
 }
 .catagory-filter{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rating-filter{
   display: flex;
   flex-direction: column;
   align-items: center;
