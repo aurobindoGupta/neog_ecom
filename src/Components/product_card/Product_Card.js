@@ -4,11 +4,12 @@ import image_1 from "../../utils/images/image_1.webp";
 
 const Product_Card = ({productTitle, subTitle, cost, productImg}) => {
   const [wishList, setWishList]= useState(false);
+  console.log(wishList);
   return (
     <div className="indi-product">
       <div className="card">
         <div className="card-img-container">
-          <i className={`fa ${wishList?"fa-heart":"fa-heart-o"} icon-badge`} onClick={()=>setWishList(!wishList)}></i>
+          <i className={`fa ${wishList?"fa-heart":"fa-heart-o"} icon-badge`} title="Wishlist" onClick={()=>setWishList(!wishList)}></i>
           <img
             className="card-img"
             src={productImg? productImg: image_1}
