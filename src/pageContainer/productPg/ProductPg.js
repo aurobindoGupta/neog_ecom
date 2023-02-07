@@ -45,7 +45,7 @@ const ProductPg = () => {
         <div className="page-content">
           <div className="product-content">
             {/* <!-- sideNav --> */}
-            <div className="sideNav pd-25">
+            <div className="sideNav">
               <div className="sideNav-header">
                 <p className="sideNav-title fs-M fw-bold">Filters</p>
                 <button
