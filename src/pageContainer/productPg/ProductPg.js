@@ -3,7 +3,6 @@ import axios from "axios";
 import "./productPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
-import image_1 from "../../utils/images/image_1.webp";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState({ Men: false, Women: false });
@@ -226,7 +225,7 @@ const ProductPg = () => {
                   productTitle= {item.title}
                   subTitle={item.categoryName}
                   cost={item.price}
-                  productImg={image_1}
+                  productImg={item.images}
                   id={key}
                 />
                 )

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./product_card.css";
+import image_1 from "../../utils/images/image_1.webp";
 
 const Product_Card = ({productTitle, subTitle, cost, productImg}) => {
   const [wishList, setWishList]= useState(false);
@@ -10,7 +11,7 @@ const Product_Card = ({productTitle, subTitle, cost, productImg}) => {
           <i className={`fa ${wishList?"fa-heart":"fa-heart-o"} icon-badge`} onClick={()=>setWishList(!wishList)}></i>
           <img
             className="card-img"
-            src={productImg}
+            src={productImg? productImg: image_1}
             alt="Card"
           />
         </div>
