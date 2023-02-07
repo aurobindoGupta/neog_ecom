@@ -1,10 +1,12 @@
-import "./navbar.css"
+import { useNavigate } from "react-router-dom";
+import "./navbar.css";
 const NavBar = () => {
+  let navigate = useNavigate();
   return (
     <div>
       <nav className="navBar">
         <div className="heroContainer">
-          <p className="heroTitle" onclick="window.location.href='/'">
+          <p className="heroTitle" onClick={() => navigate("/")}>
             MyWebsite
           </p>
         </div>
@@ -17,24 +19,18 @@ const NavBar = () => {
           <li className="navLinksBtn">
             <button
               className="btn btn-secondary"
-              onclick="window.location.href='/components/loginPg/index.html'"
+              onClick={() => navigate("/loginPg")}
             >
               Login
             </button>
           </li>
-          <li
-            className="navLinksBtn"
-            onclick="window.location.href='/components/wishListPg/index.html'"
-          >
+          <li className="navLinksBtn" onClick={() => navigate("/wishlistPg")}>
             <div className="ic-badge container">
               <i className="fa fa-heart ic"></i>
               <div className="iconBadge">0</div>
             </div>
           </li>
-          <li
-            className="navLinksBtn"
-            onclick="window.location.href='/components/cartPg/index.html'"
-          >
+          <li className="navLinksBtn" onClick={() => navigate("/cartPg")}>
             <div className="ic-badge Container">
               <i className="fa fa-shopping-cart ic"></i>
               <div className="iconBadge">0</div>

@@ -1,7 +1,8 @@
 .bottom-container-card {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
+  align-self: center;
+  padding: 1rem;
   height: 80%;
 }
 .bottom-container-card img {
@@ -17,3 +18,10 @@
 .bottom-container-card:hover {
   transform: scale(0.98);
 }
+
+.bottom_card_btn{
+  align-self: center;
+  width: fit-content;
+}
+
+
