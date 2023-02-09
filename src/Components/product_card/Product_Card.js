@@ -1,10 +1,23 @@
 import { useState } from "react";
 import "./product_card.css";
 import image_1 from "../../utils/images/image_1.webp";
+import { useCartContext } from "../../context/cartProvider";
 
-const Product_Card = ({productTitle, subTitle, cost, productImg}) => {
+const Product_Card = ({productTitle, subTitle, cost, productImg, productId}) => {
   const [wishList, setWishList]= useState(false);
-  console.log(wishList);
+  const [addToCart, setAddToCart] = useState(false);
+   const [cartValue, setCartValue] = useCartContext();
+  const handleAddTocart=(id)=>{
+    if(addToCart === true){
+      const tempArr=cartValue.filter((item)=> item.productId !== id)
+      console.log(tempArr);
+      setCartValue(tempArr)
+    }
+    else{
+      setCartValue([...cartValue,{id: cartValue.length++, productId: id}])
+    }
+    
+  }
   return (
     <div className="indi-product">
       <div className="card">
@@ -24,7 +37,8 @@ const Product_Card = ({productTitle, subTitle, cost, productImg}) => {
           </div>
         </div>
         <div className="card-button">
-          <button className="btn btn-primary button-add">Add to Cart</button>
+    
+          <button className="btn btn-primary button-add" onClick={()=>{setAddToCart(!addToCart);handleAddTocart(productId)}}>{addToCart?"remove":"Add to Cart"}</button>
         </div>
       </div>
     </div>

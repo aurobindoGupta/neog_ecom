@@ -3,8 +3,11 @@ import "./cartPg.css";
 import { default as HorizontalCard } from "../../Components/horizontal_card/Horizontal_Card";
 import NavBar from "../../Components/navbar/NavBar";
 import image_1 from "../../utils/images/image_1.webp";
+import { useCartContext } from "../../context/cartProvider";
 
 const CartPg = () => {
+  const [cartValue, setCartValue] = useCartContext();
+ console.log(cartValue);
   return (
     <div className="cartPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -16,7 +19,7 @@ const CartPg = () => {
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
         <div className="page-content">
-          <p className="card-pg-title fw-bold fs-M">My CART(2)</p>
+          <p className="card-pg-title fw-bold fs-M">My CART({cartValue.length})</p>
           <div className="cart-pg">
             <div className="cart-content">
               <HorizontalCard

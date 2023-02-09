@@ -12,12 +12,11 @@ const ProductPg = () => {
   const [productData, setProductData] = useState({});
 
   useEffect(() => {
-
-      axios({
-        method:'get',
-        url:'/api/products'
-      }).then((response)=>setProductData(response.data.products))
-  }, [])
+    axios({
+      method: "get",
+      url: "/api/products",
+    }).then((response) => setProductData(response.data.products));
+  }, []);
 
   const handleClearFilter = () => {
     setCheckFilter({ Men: false, Women: false });
@@ -31,7 +30,7 @@ const ProductPg = () => {
     { checkFilter },
     { sortByFilter }
   );
-  
+
   return (
     <div className="productPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -212,26 +211,28 @@ const ProductPg = () => {
                   Showing All Products{" "}
                   {sliderFilter !== 0 ? `[Below: Rs.${sliderFilter}]` : ``}
                   {checkFilter !== { Men: false, Women: false }
-                    ? checkFilter.Men?"[Gender: Men]": checkFilter.Women?"[Gender: Women]": ''
+                    ? checkFilter.Men
+                      ? "[Gender: Men]"
+                      : checkFilter.Women
+                      ? "[Gender: Women]"
+                      : ""
                     : ``}
-                  {ratingFilter!==""?`[Rating: ${ratingFilter}]` : ``}
-                  {sortByFilter!==""?`[Sorted By: ${sortByFilter}]` : ``}
+                  {ratingFilter !== "" ? `[Rating: ${ratingFilter}]` : ``}
+                  {sortByFilter !== "" ? `[Sorted By: ${sortByFilter}]` : ``}
                 </p>
               </div>
               <div className="product-list">
-              {Object.values(productData).map((item,key)=>{
-                return(
-                  <ProductCard
-                  productTitle= {item.title}
-                  subTitle={item.categoryName}
-                  cost={item.price}
-                  productImg={item.images}
-                  id={key}
-                />
-                )
-                
-              })}
-               
+                {Object.values(productData).map((item, key) => {
+                  return (
+                    <ProductCard
+                      productTitle={item.title}
+                      subTitle={item.categoryName}
+                      cost={item.price}
+                      productImg={item.images}
+                      productId={item._id}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

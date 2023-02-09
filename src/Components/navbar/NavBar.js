@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useCartContext } from "../../context/cartProvider";
 import "./navbar.css";
 const NavBar = () => {
+  const [cartValue] = useCartContext();
   let navigate = useNavigate();
   return (
     <div>
@@ -33,7 +35,7 @@ const NavBar = () => {
           <li className="navLinksBtn" onClick={() => navigate("/cartPg")}>
             <div className="ic-badge Container">
               <i className="fa fa-shopping-cart ic"></i>
-              <div className="iconBadge">0</div>
+              <div className="iconBadge">{cartValue.length}</div>
             </div>
           </li>
         </ul>
