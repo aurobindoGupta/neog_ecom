@@ -6,7 +6,7 @@ import image_1 from "../../utils/images/image_1.webp";
 import { useCartContext } from "../../context/cartProvider";
 
 const CartPg = () => {
-  const [cartValue, setCartValue] = useCartContext();
+  const [cartValue] = useCartContext();
  console.log(cartValue);
   return (
     <div className="cartPg">
