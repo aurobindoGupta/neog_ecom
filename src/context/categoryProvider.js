@@ -1,0 +1,26 @@
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import { createContext, useContext } from "react";
+
+const categoryContext = createContext();
+const CategoryProvider = ({ children }) => {
+  const [categoryData, setCategoryData] = useState([]);
+  const [categoryDataList, setCategoryDataList] = useState([]);
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "/api/categories",
+    }).then((response) => setCategoryData(response.data.categories));
+  }, []);
+
+
+  return (
+    <categoryContext.Provider value={[categoryData, setCategoryData]}>
+      {children}
+    </categoryContext.Provider>
+  );
+};
+const useCategoryContext = () => useContext(categoryContext);
+export { CategoryProvider, useCategoryContext };

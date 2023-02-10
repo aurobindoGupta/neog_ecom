@@ -3,34 +3,50 @@ import axios from "axios";
 import "./productPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
+import { useProductContext } from "../../context/productProvider";
+import { useCategoryContext } from "../../context/categoryProvider";
 
 const ProductPg = () => {
-  const [checkFilter, setCheckFilter] = useState({ Men: false, Women: false });
+  const [checkFilter, setCheckFilter] = useState([]);
   const [sliderFilter, setSliderFilter] = useState(0);
   const [ratingFilter, setRatingFilter] = useState("");
   const [sortByFilter, setSortByFilter] = useState("");
-  const [productData, setProductData] = useState({});
-
+  const [productData] = useProductContext();
+  const [categoryData] = useCategoryContext();
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "/api/products",
-    }).then((response) => setProductData(response.data.products));
-  }, []);
+    const handleCategories = () => {
+      console.log("yo");
+      const categoryFilterDummy = [];
+      for (let item = 0; item < categoryData.length; item++) {
+        if (
+          categoryData[item].categoryName !==
+          (categoryData[item + 1] ? categoryData[item + 1].categoryName : null)
+        ) {
+          categoryData[item]["checked"] = false;
+          categoryFilterDummy.push({
+            categoryName: categoryData[item].categoryName,
+            checked: categoryData[item].checked,
+          });
+        }
+      }
+      setCheckFilter(categoryFilterDummy);
+    };
+    handleCategories();
+  }, [categoryData]);
 
   const handleClearFilter = () => {
-    setCheckFilter({ Men: false, Women: false });
+    setCheckFilter(false);
     setSliderFilter(0);
     setRatingFilter("");
     setSortByFilter("");
   };
+
   console.log(
     { sliderFilter },
     { ratingFilter },
     { checkFilter },
     { sortByFilter }
   );
-
   return (
     <div className="productPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -82,42 +98,40 @@ const ProductPg = () => {
                 <div className="catagory-filter">
                   <p className="sideNav-title fs-M fw-bold">Category</p>
                   <div className="checkbox">
-                    <div className="checkboxOption">
-                      <label htmlFor="option1">
-                        <input
-                          type="checkbox"
-                          value="Men"
-                          id="option1"
-                          checked={checkFilter.Men}
-                          className="labelSidenav"
-                          onChange={() =>
-                            setCheckFilter({
-                              Men: !checkFilter.Men,
-                              Women: false,
-                            })
-                          }
-                        />
-                        Men Clothing
-                      </label>
-                    </div>
-                    <div className="checkboxOption">
-                      <label htmlFor="option2">
-                        <input
-                          type="checkbox"
-                          value="Women"
-                          id="option2"
-                          checked={checkFilter.Women}
-                          className="labelSidenav"
-                          onChange={() =>
-                            setCheckFilter({
-                              Men: false,
-                              Women: !checkFilter.Women,
-                            })
-                          }
-                        />
-                        Women Clothing
-                      </label>
-                    </div>
+                    {checkFilter.map((item) => {
+                      console.log(item);
+                      if (Object.hasOwn(item, "checked")) {
+                        return (
+                          <div className="checkboxOption">
+                            <label htmlFor="option1">
+                              <input
+                                type="checkbox"
+                                value="Men"
+                                id="option1"
+                                checked={item.checked}
+                                className="labelSidenav"
+                                onChange={() =>
+                                  setCheckFilter(
+                                    [...checkFilter].map((temp) => {
+                                      if (
+                                        temp.categoryName === item.categoryName
+                                      ) {
+                                        return {
+                                          ...temp,
+                                          checked: true,
+                                        };
+                                      } else return temp;
+                                    })
+                                  )
+                                }
+                              />
+                              {item.categoryName}
+                            </label>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
                   </div>
                 </div>
                 <div className="rating-filter">
@@ -230,6 +244,7 @@ const ProductPg = () => {
                       cost={item.price}
                       productImg={item.images}
                       productId={item._id}
+                      key={key}
                     />
                   );
                 })}
