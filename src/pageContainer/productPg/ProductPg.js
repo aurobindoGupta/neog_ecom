@@ -15,7 +15,7 @@ const ProductPg = () => {
   const [categoryData] = useCategoryContext();
   useEffect(() => {
     const handleCategories = () => {
-      console.log("yo");
+      
       const categoryFilterDummy = [];
       for (let item = 0; item < categoryData.length; item++) {
         if (
