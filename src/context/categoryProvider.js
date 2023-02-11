@@ -6,7 +6,6 @@ import { createContext, useContext } from "react";
 const categoryContext = createContext();
 const CategoryProvider = ({ children }) => {
   const [categoryData, setCategoryData] = useState([]);
-  const [categoryDataList, setCategoryDataList] = useState([]);
 
   useEffect(() => {
     axios({
