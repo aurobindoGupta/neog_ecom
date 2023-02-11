@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
-import { FilterProvider } from "./context/filter_Context";
+import { FilterProvider } from "./context/filterProvider";
 import { CartProvider } from "./context/cartProvider";
 import { ProductProvider } from "./context/productProvider";
 import { CategoryProvider } from "./context/categoryProvider";
