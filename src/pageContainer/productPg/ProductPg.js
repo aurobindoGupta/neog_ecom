@@ -33,6 +33,14 @@ const ProductPg = () => {
     handleCategoryData();
   }, [categoryData]);
 
+  useEffect(() => {
+    let timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      handleFilteredProductData();
+    }, 2000);
+  }, [checkFilter]);
+
   const handleCheckFilter = (checkFilterDataitem) => {
     setCheckFilter(
       [...checkFilter].map((temp) => {
@@ -50,9 +58,18 @@ const ProductPg = () => {
     Object.keys(checkFilter).map((item) => checkFilter[item].checked)
   );
   const handleFilteredProductData = () => {
-    const filteredDummyData = productData.map((item) => {
-      return checkFilter.filter(itm=>item.categoryName===itm.categoryName)
+    let filteredDummyData = [];
+    let checkfilterdummy = [];
+    checkFilter.forEach((itm) => {
+      if (itm.checked === true) {
+        checkfilterdummy.push(itm);
+        filteredDummyData = Object.values(productData).map(
+          (item) => item.categoryName === itm.categoryName?item:null
+        );
+      }
     });
+    console.log(checkfilterdummy);
+    console.log(filteredDummyData);
   };
   const handleClearFilter = () => {
     setCheckFilter(

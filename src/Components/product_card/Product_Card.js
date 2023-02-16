@@ -17,14 +17,9 @@ const Product_Card = ({productTitle, subTitle, cost, productImg, productId}) => 
     }
     else{
       setCartValue([...cartValue,{id: cartValue.length++, productId: id}])
-    }
-    
+    } 
   }
-  const handleProductImg=async (imgApi)=>{
-    console.log(imgApi);
-   return await  axios.get(imgApi)
-
-  }
+  
   return (
     <div className="indi-product">
       <div className="card">
