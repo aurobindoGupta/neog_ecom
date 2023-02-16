@@ -38,7 +38,7 @@ const ProductPg = () => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       handleFilteredProductData();
-    }, 2000);
+    }, 1000);
   }, [checkFilter]);
 
   const handleCheckFilter = (checkFilterDataitem) => {
@@ -53,24 +53,30 @@ const ProductPg = () => {
       })
     );
   };
-  console.log(
-    "here",
-    Object.keys(checkFilter).map((item) => checkFilter[item].checked)
-  );
   const handleFilteredProductData = () => {
-    let filteredDummyData = [];
+    setFilteredProductData([]);
     let checkfilterdummy = [];
-    checkFilter.forEach((itm) => {
-      if (itm.checked === true) {
-        checkfilterdummy.push(itm);
-        filteredDummyData = Object.values(productData).map(
-          (item) => item.categoryName === itm.categoryName?item:null
+    let filteredProductDataDummy = [];
+    Object.keys(checkFilter).map((itm, key) => {
+      if (checkFilter[itm].checked === true) {
+        checkfilterdummy.push(checkFilter[itm]);
+       // console.log(checkFilter[itm].categoryName);
+        // console.log(
+        //   Object.values(productData).filter(
+        //     (item) => item.categoryName === checkFilter[itm].categoryName
+        //   )
+        // );
+        filteredProductDataDummy.push(
+          ...Object.values(productData).filter(
+            (item) => item.categoryName === checkFilter[itm].categoryName
+          )
         );
+        setFilteredProductData([...filteredProductDataDummy]);
       }
     });
-    console.log(checkfilterdummy);
-    console.log(filteredDummyData);
   };
+  console.log("filteredDummyData", filteredProductData);
+
   const handleClearFilter = () => {
     setCheckFilter(
       [...checkFilter].map((temp) => {
@@ -268,19 +274,32 @@ const ProductPg = () => {
                 </p>
               </div>
               <div className="product-list">
-                {Object.values(productData).map((item, key) => {
-                  // console.log("HELLO", filteredProductData.length);
-                  return (
-                    <ProductCard
-                      productTitle={item.title}
-                      subTitle={item.categoryName}
-                      cost={item.price}
-                      productImg={item.images}
-                      productId={item._id}
-                      key={key}
-                    />
-                  );
-                })}
+                {filteredProductData.length > 0
+                  ? Object.values(filteredProductData).map((item, key) => {
+                      return (
+                        <ProductCard
+                          productTitle={item.title}
+                          subTitle={item.categoryName}
+                          cost={item.price}
+                          productImg={item.images}
+                          productId={item._id}
+                          key={key}
+                        />
+                      );
+                    })
+                  : Object.values(productData).map((item, key) => {
+                      //console.log("HELLO", filteredProductData);
+                      return (
+                        <ProductCard
+                          productTitle={item.title}
+                          subTitle={item.categoryName}
+                          cost={item.price}
+                          productImg={item.images}
+                          productId={item._id}
+                          key={key}
+                        />
+                      );
+                    })}
               </div>
             </div>
           </div>
