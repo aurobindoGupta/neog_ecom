@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import "./product_card.css";
 import image_1 from "../../utils/images/image_1.webp";
 import { useCartContext } from "../../context/cartProvider";
@@ -8,6 +9,7 @@ const Product_Card = ({productTitle, subTitle, cost, productImg, productId}) => 
   const [addToCart, setAddToCart] = useState(false);
    const [cartValue, setCartValue] = useCartContext();
   const handleAddTocart=(id)=>{
+    //TODO:add toast
     if(addToCart === true){
       const tempArr=cartValue.filter((item)=> item.productId !== id)
       console.log(tempArr);
@@ -18,6 +20,11 @@ const Product_Card = ({productTitle, subTitle, cost, productImg, productId}) => 
     }
     
   }
+  const handleProductImg=async (imgApi)=>{
+    console.log(imgApi);
+   return await  axios.get(imgApi)
+
+  }
   return (
     <div className="indi-product">
       <div className="card">
@@ -25,8 +32,9 @@ const Product_Card = ({productTitle, subTitle, cost, productImg, productId}) => 
           <i className={`fa ${wishList?"fa-heart":"fa-heart-o"} icon-badge`} title="Wishlist" onClick={()=>setWishList(!wishList)}></i>
           <img
             className="card-img"
-            src={productImg? productImg: image_1}
-            alt="Card"
+            src={productImg}
+            alt={image_1}
+            onError={(e)=>e.target.src = image_1}
           />
         </div>
         <div className="card-title">

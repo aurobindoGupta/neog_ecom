@@ -12,6 +12,7 @@ const CategoryProvider = ({ children }) => {
       method: "get",
       url: "/api/categories",
     }).then((response) => setCategoryData(response.data.categories));
+    console.log('Category data called');
   }, []);
 
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import "./productPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
@@ -11,11 +10,11 @@ const ProductPg = () => {
   const [sliderFilter, setSliderFilter] = useState(0);
   const [ratingFilter, setRatingFilter] = useState("");
   const [sortByFilter, setSortByFilter] = useState("");
+  const [filteredProductData, setFilteredProductData] = useState([]);
   const [productData] = useProductContext();
   const [categoryData] = useCategoryContext();
   useEffect(() => {
-    const handleCategories = () => {
-      
+    const handleCategoryData = () => {
       const categoryFilterDummy = [];
       for (let item = 0; item < categoryData.length; item++) {
         if (
@@ -31,11 +30,39 @@ const ProductPg = () => {
       }
       setCheckFilter(categoryFilterDummy);
     };
-    handleCategories();
+    handleCategoryData();
   }, [categoryData]);
 
+  const handleCheckFilter = (checkFilterDataitem) => {
+    setCheckFilter(
+      [...checkFilter].map((temp) => {
+        if (temp.categoryName === checkFilterDataitem.categoryName) {
+          return {
+            ...temp,
+            checked: !temp.checked,
+          };
+        } else return temp;
+      })
+    );
+  };
+  console.log(
+    "here",
+    Object.keys(checkFilter).map((item) => checkFilter[item].checked)
+  );
+  const handleFilteredProductData = () => {
+    const filteredDummyData = productData.map((item) => {
+      return checkFilter.filter(itm=>item.categoryName===itm.categoryName)
+    });
+  };
   const handleClearFilter = () => {
-    setCheckFilter(false);
+    setCheckFilter(
+      [...checkFilter].map((temp) => {
+        return {
+          ...temp,
+          checked: false,
+        };
+      })
+    );
     setSliderFilter(0);
     setRatingFilter("");
     setSortByFilter("");
@@ -98,32 +125,20 @@ const ProductPg = () => {
                 <div className="catagory-filter">
                   <p className="sideNav-title fs-M fw-bold">Category</p>
                   <div className="checkbox">
-                    {checkFilter.map((item) => {
-                      console.log(item);
+                    {checkFilter.map((item, key) => {
                       if (Object.hasOwn(item, "checked")) {
                         return (
-                          <div className="checkboxOption">
+                          <div
+                            className="checkboxOption"
+                            onClick={() => handleCheckFilter(item)}
+                          >
                             <label htmlFor="option1">
                               <input
                                 type="checkbox"
-                                value="Men"
-                                id="option1"
+                                value={item.categoryName}
+                                id={key}
                                 checked={item.checked}
                                 className="labelSidenav"
-                                onChange={() =>
-                                  setCheckFilter(
-                                    [...checkFilter].map((temp) => {
-                                      if (
-                                        temp.categoryName === item.categoryName
-                                      ) {
-                                        return {
-                                          ...temp,
-                                          checked: true,
-                                        };
-                                      } else return temp;
-                                    })
-                                  )
-                                }
                               />
                               {item.categoryName}
                             </label>
@@ -237,6 +252,7 @@ const ProductPg = () => {
               </div>
               <div className="product-list">
                 {Object.values(productData).map((item, key) => {
+                  // console.log("HELLO", filteredProductData.length);
                   return (
                     <ProductCard
                       productTitle={item.title}

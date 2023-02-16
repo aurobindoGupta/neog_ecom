@@ -12,6 +12,7 @@ export const products = [
     author: "Shiv Khera",
     price: "5000",
     stock: 0,
+    rating:0,
     categoryName: "Book",
     subCategory: "non-fiction",
     images:
@@ -23,6 +24,7 @@ export const products = [
     author: "Junaid Qureshi",
     price: "3000",
     stock: 0,
+    rating:3,
     categoryName: "Book",
     subCategory: "horror",
     images:
@@ -33,6 +35,7 @@ export const products = [
     title: "Think and Grow Rich",
     author: "Shiv Khera",
     stock: 94,
+    rating:2,
     price: "1000",
     categoryName: "Book",
     subCategory: "fiction",
@@ -45,7 +48,7 @@ export const products = [
     title: "iPhone 9",
     description: "An apple mobile which is nothing like apple",
     price: "549",
-
+    rating:5,
     stock: 94,
     brand: "Apple",
     category: "smartphones",
@@ -58,7 +61,7 @@ export const products = [
     description:
       "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
     price: "899",
-
+    rating:4,
     stock: 34,
     brand: "Apple",
     category: "smartphones",
@@ -71,7 +74,7 @@ export const products = [
     description:
       "Samsung's new variant which goes beyond Galaxy to the Universe",
     price: "1249",
-
+    rating:4,
     stock: 36,
     brand: "Samsung",
     category: "smartphones",
@@ -83,7 +86,7 @@ export const products = [
     title: "OPPOF19",
     description: "OPPO F19 is officially announced on April 2021.",
     price: "280",
-
+    rating:2,
     stock: 123,
     brand: "OPPO",
     category: "smartphones",
@@ -96,7 +99,7 @@ export const products = [
     description:
       "Huawei’s re-badged P30 Pro New Edition was officially unveiled yesterday in Germany and now the device has made its way to the UK.",
     price: "499",
-
+    rating:2,
     stock: 32,
     brand: "Huawei",
     category: "smartphones",
@@ -109,7 +112,7 @@ export const products = [
     description:
       "MacBook Pro 2021 with mini-LED display may launch between September, November",
     price: "1749",
-
+    rating:2,
     stock: 83,
     brand: "Apple",
     category: "laptops",
@@ -122,7 +125,7 @@ export const products = [
     description:
       "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
     price: "1499",
-
+    rating:2,
     stock: 50,
     brand: "Samsung",
     category: "laptops",
@@ -135,7 +138,7 @@ export const products = [
     description:
       "Style and speed. Stand out on HD video calls backed by Studio Mics. Capture ideas on the vibrant touchscreen.",
     price: "1499",
-
+    rating:2,
     stock: 68,
     brand: "Microsoft Surface",
     category: "laptops",
@@ -148,7 +151,7 @@ export const products = [
     description:
       "Infinix Inbook X1 Ci3 10th 8GB 256GB 14 Win10 Grey – 1 Year Warranty",
     price: "1099",
-
+    rating:2,
     stock: 96,
     brand: "Infinix",
     category: "laptops",
@@ -161,7 +164,7 @@ export const products = [
     description:
       "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
     price: "1099",
-
+    rating:2,
     stock: 89,
     brand: "HP Pavilion",
     category: "laptops",
@@ -174,7 +177,7 @@ export const products = [
     description:
       "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
     price: "13",
-
+    rating:2,
     stock: 65,
     brand: "Impression of Acqua Di Gio",
     category: "fragrances",
@@ -186,7 +189,7 @@ export const products = [
     title: "Brown Perfume",
     description: "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
     price: "40",
-
+    rating:2,
     stock: 52,
     brand: "Royal_Mirage",
     category: "fragrances",
@@ -199,7 +202,7 @@ export const products = [
     description:
       "Product details of Best Fog Scent Xpressio Perfume 100ml For Men cool long lasting perfumes for Men",
     price: "13",
-
+    rating:2,
     stock: 61,
     brand: "Fog Scent Xpressio",
     category: "fragrances",
@@ -212,7 +215,7 @@ export const products = [
     description:
       "Original Al Munakh® by Mahal Al Musk | Our Impression of Climate | 6ml Non-Alcoholic Concentrated Perfume Oil",
     price: "120",
-
+    rating:2,
     stock: 114,
     brand: "Al Munakh",
     category: "fragrances",
@@ -225,7 +228,7 @@ export const products = [
     description:
       "Genuine  Al-Rehab spray perfume from UAE/Saudi Arabia/Yemen High Quality",
     price: "30",
-
+    rating:4,
     stock: 105,
     brand: "Lord - Al-Rehab",
     category: "fragrances",
@@ -238,7 +241,7 @@ export const products = [
     description:
       "L'OrÃ©al Paris introduces Hyaluron Expert Replumping Serum formulated with 1.5% Hyaluronic Acid",
     price: "19",
-
+    rating:3,
     stock: 110,
     brand: "L'Oreal Paris",
     category: "skincare",
@@ -251,7 +254,7 @@ export const products = [
     description:
       "Tea tree oil contains a number of compounds, including terpinen-4-ol, that have been shown to kill certain bacteria,",
     price: "12",
-
+    rating:1,
     stock: 78,
     brand: "Hemani Tea",
     category: "skincare",
@@ -264,7 +267,7 @@ export const products = [
     description:
       "Dermive Oil Free Moisturizer with SPF 20 is specifically formulated with ceramides, hyaluronic acid & sunscreen.",
     price: "40",
-
+    rating:2,
     stock: 88,
     brand: "Dermive",
     category: "skincare",
@@ -277,7 +280,7 @@ export const products = [
     description:
       "Product name: rorec collagen hyaluronic acid white face serum riceNet weight: 15 m",
     price: "46",
-
+    rating:2,
     stock: 54,
     brand: "ROREC White Rice",
     category: "skincare",
@@ -290,7 +293,7 @@ export const products = [
     description:
       "Fair & Clear is Pakistan's only pure Freckle cream which helpsfade Freckles, Darkspots and pigments. Mercury level is 0%, so there are no side effects.",
     price: "70",
-
+    rating:2,
     stock: 140,
     brand: "Fair & Clear",
     category: "skincare",
@@ -302,7 +305,7 @@ export const products = [
     title: "- Daal Masoor 500 grams",
     description: "Fine quality Branded Product Keep in a cool and dry place",
     price: "20",
-
+    rating:2,
     stock: 133,
     brand: "Saaf & Khaas",
     category: "groceries",
@@ -314,7 +317,7 @@ export const products = [
     title: "Elbow Macaroni - 400 gm",
     description: "Product details of Bake Parlor Big Elbow Macaroni - 400 gm",
     price: "14",
-
+    rating:2,
     stock: 146,
     brand: "Bake Parlor Big",
     category: "groceries",
@@ -327,7 +330,7 @@ export const products = [
     description:
       "Specifications of Orange Essence Food Flavour For Cakes and Baking Food Item",
     price: "14",
-
+    rating:2,
     stock: 26,
     brand: "Baking Food Items",
     category: "groceries",
@@ -340,7 +343,7 @@ export const products = [
     description:
       "original fauji cereal muesli 250gm box pack original fauji cereals muesli fruit nuts flakes breakfast cereal break fast faujicereals cerels cerel foji fouji",
     price: "46",
-
+    rating:2,
     stock: 113,
     brand: "fauji",
     category: "groceries",
@@ -352,7 +355,7 @@ export const products = [
     title: "Gulab Powder 50 Gram",
     description: "Dry Rose Flower Powder Gulab Powder 50 Gram • Treats Wounds",
     price: "70",
-
+    rating:2,
     stock: 47,
     brand: "Dry Rose",
     category: "groceries",
@@ -365,7 +368,7 @@ export const products = [
     description:
       "Boho Decor Plant Hanger For Home Wall Decoration Macrame Wall Hanging Shelf",
     price: "41",
-
+    rating:2,
     stock: 131,
     brand: "Boho Decor",
     category: "home-decoration",
@@ -378,7 +381,7 @@ export const products = [
     description:
       "Package Include 6 Birds with Adhesive Tape Shape: 3D Shaped Wooden Birds Material: Wooden MDF, Laminated 3.5mm",
     price: "51",
-
+    rating:2,
     stock: 17,
     brand: "Flying Wooden",
     category: "home-decoration",
@@ -391,7 +394,7 @@ export const products = [
     description:
       "3D led lamp sticker Wall sticker 3d wall art light on/off button  cell operated (included)",
     price: "20",
-
+    rating:2,
     stock: 54,
     brand: "LED Lights",
     category: "home-decoration",
@@ -404,7 +407,7 @@ export const products = [
     description:
       "Handcraft Chinese style art luxury palace hotel villa mansion home decor ceramic vase with brass fruit plate",
     price: "60",
-
+    rating:2,
     stock: 7,
     brand: "luxury palace",
     category: "home-decoration",
@@ -417,7 +420,7 @@ export const products = [
     description:
       "Attractive DesignMetallic materialFour key hooksReliable & DurablePremium Quality",
     price: "30",
-
+    rating:2,
     stock: 54,
     brand: "Golden",
     category: "home-decoration",
