@@ -12,7 +12,6 @@
 .sideNav {
   flex-grow: 1;
   width: 20%;
-  height: fit-content;
   max-width: 20rem;
   position: sticky;
   background: var(--stdWhite-color);

@@ -51,42 +51,4 @@ export const categories = [
     _id: uuid(),
     categoryName: "home-decoration",
   },
-  {
-    _id: uuid(),
-    categoryName: "furniture",
-  },
-  {
-    _id: uuid(),
-    categoryName: "tops",
-  },
-  {
-    _id: uuid(),
-    categoryName: "womens-dresses",
-  },
-  {
-    _id: uuid(),
-    categoryName: "womens-shoes",
-  },
-  {
-    _id: uuid(),
-    categoryName: "mens-shirts",
-  },
-  {
-    _id: uuid(),
-    categoryName: "mens-shoes",
-  },
-  {
-    _id: uuid(),
-    categoryName: "mens-watches",
-  },
-  {
-    _id: uuid(),
-    categoryName: "womens-watches",
-  },
-  { _id: uuid(), categoryName: "womens-bags" },
-  { _id: uuid(), categoryName: "womens-jewellery" },
-  { _id: uuid(), categoryName: "sunglasses" },
-  { _id: uuid(), categoryName: "automotive" },
-  { _id: uuid(), categoryName: "motorcycle" },
-  { _id: uuid(), categoryName: "lighting" },
 ];
