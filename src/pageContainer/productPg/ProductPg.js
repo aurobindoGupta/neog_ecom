@@ -159,9 +159,6 @@ const ProductPg = () => {
         }
       });
     }
-    //? added cuz if checked after rating/sort used items added are unsorted
-    // setRatingFilter("");
-    // setSortByFilter("");
   };
   console.log("filteredDummyData", filteredProductData);
 
@@ -176,86 +173,6 @@ const ProductPg = () => {
     filteredRatingData !== -1
       ? setFilteredProductData([...filteredRatingData])
       : handleClearFilter();
-
-    // if (rating === "4-star") {
-    //   if (filteredProductData.length === 0) {
-    //     filteredRatingData.push(
-    //       ...Object.values(productData).filter((item) => item.rating === 4)
-    //     );
-    //     setFilteredProductData([...filteredRatingData]);
-    //   } else {
-    //     filteredRatingData.push(
-    //       ...Object.values(filteredProductData).filter(
-    //         (item) => item.rating === 4
-    //       )
-    //     );
-    //     if (filteredRatingData.length === 0) {
-    //       handleClearFilter();
-    //       alert("No Product Matching");
-    //     } else {
-    //       setFilteredProductData([...filteredRatingData]);
-    //     }
-    //   }
-    // } else if (rating === "3-star") {
-    //   if (filteredProductData.length === 0) {
-    //     filteredRatingData.push(
-    //       ...Object.values(productData).filter((item) => item.rating === 3)
-    //     );
-    //     setFilteredProductData([...filteredRatingData]);
-    //   } else {
-    //     filteredRatingData.push(
-    //       ...Object.values(filteredProductData).filter(
-    //         (item) => item.rating === 3
-    //       )
-    //     );
-    //     if (filteredRatingData.length === 0) {
-    //       handleClearFilter();
-    //       alert("No Product Matching");
-    //     } else {
-    //       setFilteredProductData([...filteredRatingData]);
-    //     }
-    //   }
-    // } else if (rating === "2-star") {
-    //   if (filteredProductData.length === 0) {
-    //     filteredRatingData.push(
-    //       ...Object.values(productData).filter((item) => item.rating === 2)
-    //     );
-    //     setFilteredProductData([...filteredRatingData]);
-    //   } else {
-    //     filteredRatingData.push(
-    //       ...Object.values(filteredProductData).filter(
-    //         (item) => item.rating === 2
-    //       )
-    //     );
-    //     if (filteredRatingData.length === 0) {
-    //       handleClearFilter();
-    //       alert("No Product Matching");
-    //     } else {
-    //       setFilteredProductData([...filteredRatingData]);
-    //     }
-    //   }
-    // } else if (rating === "1-star") {
-    //   if (filteredProductData.length === 0) {
-    //     filteredRatingData.push(
-    //       ...Object.values(productData).filter((item) => item.rating === 1)
-    //     );
-    //     setFilteredProductData([...filteredRatingData]);
-    //   } else {
-    //     filteredRatingData.push(
-    //       ...Object.values(filteredProductData).filter(
-    //         (item) => item.rating === 1
-    //       )
-    //     );
-    //     if (filteredRatingData.length === 0) {
-    //       handleClearFilter();
-    //       alert("No Product Matching");
-    //     } else {
-    //       setFilteredProductData([...filteredRatingData]);
-    //     }
-    //   }
-    // } else {
-    //   console.log("something WRONG/No rating");
-    //  }
   };
 
   //* handling sortBy filter
