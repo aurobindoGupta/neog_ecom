@@ -80,3 +80,7 @@
   flex-direction: column;
   align-items: center;
 }
+.radio-1, .radio-2, .radio-3, .radio-4{
+  display: flex;
+  flex-direction: row;
+}

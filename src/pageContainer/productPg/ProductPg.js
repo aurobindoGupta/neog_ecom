@@ -33,14 +33,31 @@ const ProductPg = () => {
     handleCategoryData();
   }, [categoryData]);
 
+  useEffect( () => {
+    let timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      handlecategoryFilteredData();
+    }, 1000);
+  }, [checkFilter]);
+
   useEffect(() => {
     let timeout;
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      handleFilteredProductData();
+      handleRatingFilterData(ratingFilter);
     }, 1000);
-  }, [checkFilter]);
+  }, [ratingFilter]);
 
+  useEffect(() => {
+    let timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      handleSortByCostFilterData(sortByFilter);
+    }, 1000);
+  }, [sortByFilter]);
+
+  //* handle checked/unchecked
   const handleCheckFilter = (checkFilterDataitem) => {
     setCheckFilter(
       [...checkFilter].map((temp) => {
@@ -53,19 +70,15 @@ const ProductPg = () => {
       })
     );
   };
-  const handleFilteredProductData = () => {
+
+  //* handling category filter
+  const handlecategoryFilteredData = () => {
     setFilteredProductData([]);
     let checkfilterdummy = [];
     let filteredProductDataDummy = [];
     Object.keys(checkFilter).map((itm, key) => {
       if (checkFilter[itm].checked === true) {
         checkfilterdummy.push(checkFilter[itm]);
-       // console.log(checkFilter[itm].categoryName);
-        // console.log(
-        //   Object.values(productData).filter(
-        //     (item) => item.categoryName === checkFilter[itm].categoryName
-        //   )
-        // );
         filteredProductDataDummy.push(
           ...Object.values(productData).filter(
             (item) => item.categoryName === checkFilter[itm].categoryName
@@ -74,9 +87,151 @@ const ProductPg = () => {
         setFilteredProductData([...filteredProductDataDummy]);
       }
     });
+    //? added cuz if checked after rating/sort used items added are unsorted
+    setRatingFilter('');
+    setSortByFilter('');
   };
   console.log("filteredDummyData", filteredProductData);
 
+  //* handling rating filter
+  const handleRatingFilterData = (rating) => {
+    console.log(rating);
+    let filteredRatingData = [];
+    if (rating === "4-star") {
+      if (filteredProductData.length === 0) {
+        filteredRatingData.push(
+          ...Object.values(productData).filter((item) => item.rating === 4)
+        );
+        setFilteredProductData([...filteredRatingData]);
+      } else {
+        filteredRatingData.push(
+          ...Object.values(filteredProductData).filter(
+            (item) => item.rating === 4
+          )
+        );
+        if (filteredRatingData.length === 0) {
+          handleClearFilter();
+          alert("No Product Matching");
+        } else {
+          setFilteredProductData([...filteredRatingData]);
+        }
+      }
+    } else if (rating === "3-star") {
+      if (filteredProductData.length === 0) {
+        filteredRatingData.push(
+          ...Object.values(productData).filter((item) => item.rating === 3)
+        );
+        setFilteredProductData([...filteredRatingData]);
+      } else {
+        filteredRatingData.push(
+          ...Object.values(filteredProductData).filter(
+            (item) => item.rating === 3
+          )
+        );
+        if (filteredRatingData.length === 0) {
+          handleClearFilter();
+          alert("No Product Matching");
+        } else {
+          setFilteredProductData([...filteredRatingData]);
+        }
+      }
+    } else if (rating === "2-star") {
+      if (filteredProductData.length === 0) {
+        filteredRatingData.push(
+          ...Object.values(productData).filter((item) => item.rating === 2)
+        );
+        setFilteredProductData([...filteredRatingData]);
+      } else {
+        filteredRatingData.push(
+          ...Object.values(filteredProductData).filter(
+            (item) => item.rating === 2
+          )
+        );
+        if (filteredRatingData.length === 0) {
+          handleClearFilter();
+          alert("No Product Matching");
+        } else {
+          setFilteredProductData([...filteredRatingData]);
+        }
+      }
+    } else if (rating === "1-star") {
+      if (filteredProductData.length === 0) {
+        filteredRatingData.push(
+          ...Object.values(productData).filter((item) => item.rating === 1)
+        );
+        setFilteredProductData([...filteredRatingData]);
+      } else {
+        filteredRatingData.push(
+          ...Object.values(filteredProductData).filter(
+            (item) => item.rating === 1
+          )
+        );
+        if (filteredRatingData.length === 0) {
+          handleClearFilter();
+          alert("No Product Matching");
+        } else {
+          setFilteredProductData([...filteredRatingData]);
+        }
+      }
+    } else {
+      console.log("something WRONG/No rating");
+    }
+  };
+
+  //* handling sortBy filter
+  const handleSortByCostFilterData = (sortBy) => {
+    let filteredSortData = [];
+    switch (sortBy) {
+      case "LowToHigh":
+        if (filteredProductData.length > 0) {
+          filteredSortData.push(
+            ...filteredProductData.sort(
+              (a, b) => Number(a.price) - Number(b.price)
+            )
+          );
+          setFilteredProductData([...filteredSortData]);
+        } else {
+          filteredSortData.push(
+            ...Object.values(productData).sort((a, b) => {
+              if (Number(a.price) >= Number(b.price)) {
+                return 1;
+              } else {
+                return -1;
+              }
+            })
+          );
+          console.log(filteredSortData);
+          setFilteredProductData([...filteredSortData]);
+        }
+        break;
+      case "HighToLow":
+        if (filteredProductData.length > 0) {
+          filteredSortData.push(
+            ...Object.values(filteredProductData).sort(
+              (a, b) => Number(b.price) - Number(a.price)
+            )
+          );
+          setFilteredProductData([...filteredSortData]);
+        } else {
+          filteredSortData.push(
+            ...Object.values(productData).sort((a, b) => {
+              if (Number(a.price) < Number(b.price)) {
+                return -1;
+              } else {
+                return 1;
+              }
+            })
+          );
+          console.log(filteredSortData);
+          setFilteredProductData([...filteredSortData]);
+        }
+        break;
+      default:
+        console.log("Wrong Sort/No sort");
+    }
+  };
+  console.log("YOYO", filteredProductData);
+  //* handling  filter clear
   const handleClearFilter = () => {
     setCheckFilter(
       [...checkFilter].map((temp) => {
@@ -185,7 +340,16 @@ const ProductPg = () => {
                         className="labelSidenav"
                         onChange={(e) => setRatingFilter(e.target.value)}
                       />
-                      <label htmlFor="radio-1">4 star</label>
+                      <label htmlFor="radio-1">
+                        <div className="starGrp fs-M">
+                          <ul>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star"></li>
+                          </ul>
+                        </div>
+                      </label>
                     </div>
                     <div className="radio-2">
                       <input
@@ -197,7 +361,16 @@ const ProductPg = () => {
                         className="labelSidenav"
                         onChange={(e) => setRatingFilter(e.target.value)}
                       />
-                      <label htmlFor="radio-2">3 star</label>
+                      <label htmlFor="radio-2">
+                        <div className="starGrp fs-M">
+                          <ul>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star-o"></li>
+                          </ul>
+                        </div>
+                      </label>
                     </div>
                     <div className="radio-3">
                       <input
@@ -209,7 +382,16 @@ const ProductPg = () => {
                         className="labelSidenav"
                         onChange={(e) => setRatingFilter(e.target.value)}
                       />
-                      <label htmlFor="radio-3">2 star</label>
+                      <label htmlFor="radio-3">
+                        <div className="starGrp fs-M">
+                          <ul>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star-o"></li>
+                            <li className="fa fa-star-o"></li>
+                          </ul>
+                        </div>
+                      </label>
                     </div>
                     <div className="radio-4">
                       <input
@@ -221,7 +403,16 @@ const ProductPg = () => {
                         className="labelSidenav"
                         onChange={(e) => setRatingFilter(e.target.value)}
                       />
-                      <label htmlFor="radio-4">1 star</label>
+                      <label htmlFor="radio-4">
+                        <div className="starGrp fs-M">
+                          <ul>
+                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star-o"></li>
+                            <li className="fa fa-star-o"></li>
+                            <li className="fa fa-star-o"></li>
+                          </ul>
+                        </div>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -231,10 +422,10 @@ const ProductPg = () => {
                     <div className="sort-1">
                       <input
                         type="radio"
-                        value="Low-to-High"
+                        value="LowToHigh"
                         id="sort-1"
                         name="sort"
-                        checked={sortByFilter === "Low-to-High"}
+                        checked={sortByFilter === "LowToHigh"}
                         className="labelSidenav"
                         onChange={(e) => setSortByFilter(e.target.value)}
                       />
@@ -243,10 +434,10 @@ const ProductPg = () => {
                     <div className="sort-2">
                       <input
                         type="radio"
-                        value="High-to-Low"
+                        value="HighToLow"
                         id="sort-2"
                         name="sort"
-                        checked={sortByFilter === "High-to-Low"}
+                        checked={sortByFilter === "HighToLow"}
                         className="labelSidenav"
                         onChange={(e) => setSortByFilter(e.target.value)}
                       />
