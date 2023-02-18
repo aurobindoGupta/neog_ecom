@@ -4,6 +4,8 @@ import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
 import { useProductContext } from "../../context/productProvider";
 import { useCategoryContext } from "../../context/categoryProvider";
+import priceFilter from "../../Components/Productfilters/priceFilter";
+import ratingFilterMod from "../../Components/Productfilters/ratingFilterMod";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -33,11 +35,19 @@ const ProductPg = () => {
     handleCategoryData();
   }, [categoryData]);
 
-  useEffect( () => {
+  useEffect(() => {
     let timeout;
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      handlecategoryFilteredData();
+      handlePriceFilterData(sliderFilter);
+    }, 1000);
+  }, [sliderFilter]);
+
+  useEffect(() => {
+    let timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      handleCategoryFilteredData();
     }, 1000);
   }, [checkFilter]);
 
@@ -58,10 +68,10 @@ const ProductPg = () => {
   }, [sortByFilter]);
 
   //* handle checked/unchecked
-  const handleCheckFilter = (checkFilterDataitem) => {
+  const handleCheckFilter = (checkFilterDataItem) => {
     setCheckFilter(
       [...checkFilter].map((temp) => {
-        if (temp.categoryName === checkFilterDataitem.categoryName) {
+        if (temp.categoryName === checkFilterDataItem.categoryName) {
           return {
             ...temp,
             checked: !temp.checked,
@@ -72,31 +82,104 @@ const ProductPg = () => {
   };
 
   //* handling category filter
-  const handlecategoryFilteredData = () => {
+  const handleCategoryFilteredData = () => {
     setFilteredProductData([]);
-    let checkfilterdummy = [];
+    let checkFilterDummy = [];
     let filteredProductDataDummy = [];
-    Object.keys(checkFilter).map((itm, key) => {
-      if (checkFilter[itm].checked === true) {
-        checkfilterdummy.push(checkFilter[itm]);
-        filteredProductDataDummy.push(
-          ...Object.values(productData).filter(
-            (item) => item.categoryName === checkFilter[itm].categoryName
-          )
-        );
-        setFilteredProductData([...filteredProductDataDummy]);
-      }
-    });
+
+    if (ratingFilter !== "") {
+      Object.keys(checkFilter).map((itm, key) => {
+        if (checkFilter[itm].checked === true) {
+          checkFilterDummy.push(checkFilter[itm]);
+          filteredProductDataDummy.push(
+            ...Object.values(productData).filter(
+              (item) => item.categoryName === checkFilter[itm].categoryName
+            )
+          );
+          if (ratingFilter === "4-star") {
+            filteredProductDataDummy = filteredProductDataDummy.filter(
+              (item) => item.rating === 4
+            );
+          } else if (ratingFilter === "3-star") {
+            filteredProductDataDummy = filteredProductDataDummy.filter(
+              (item) => item.rating === 3
+            );
+          } else if (ratingFilter === "2-star") {
+            filteredProductDataDummy.filter((item) => item.rating === 2);
+          } else if (ratingFilter === "1-star") {
+            filteredProductDataDummy = filteredProductDataDummy.filter(
+              (item) => item.rating === 1
+            );
+          } else {
+            console.log("something WRONG/No rating");
+          }
+          if (filteredProductDataDummy.length === 0) {
+            handleClearFilter();
+            alert("No Product Matching");
+          }
+          setFilteredProductData([...filteredProductDataDummy]);
+        }
+      });
+    } else if (sortByFilter !== "") {
+      Object.keys(checkFilter).map((itm, key) => {
+        if (checkFilter[itm].checked === true) {
+          checkFilterDummy.push(checkFilter[itm]);
+          filteredProductDataDummy.push(
+            ...Object.values(productData).filter(
+              (item) => item.categoryName === checkFilter[itm].categoryName
+            )
+          );
+          switch (sortByFilter) {
+            case "LowToHigh":
+              filteredProductDataDummy = filteredProductDataDummy.sort(
+                (a, b) => Number(a.price) - Number(b.price)
+              );
+              break;
+            case "HighToLow":
+              filteredProductDataDummy = filteredProductDataDummy.sort(
+                (a, b) => Number(b.price) - Number(a.price)
+              );
+              break;
+            default:
+              console.log("Wrong Sort/No sort category");
+          }
+          setFilteredProductData([...filteredProductDataDummy]);
+        }
+      });
+    } else {
+      Object.keys(checkFilter).map((itm, key) => {
+        if (checkFilter[itm].checked === true) {
+          checkFilterDummy.push(checkFilter[itm]);
+          filteredProductDataDummy.push(
+            ...Object.values(productData).filter(
+              (item) => item.categoryName === checkFilter[itm].categoryName
+            )
+          );
+          setFilteredProductData([...filteredProductDataDummy]);
+        }
+      });
+    }
     //? added cuz if checked after rating/sort used items added are unsorted
-    setRatingFilter('');
-    setSortByFilter('');
+    // setRatingFilter("");
+    // setSortByFilter("");
   };
   console.log("filteredDummyData", filteredProductData);
 
   //* handling rating filter
   const handleRatingFilterData = (rating) => {
-    console.log(rating);
     let filteredRatingData = [];
+    // if (filteredProductData.length > 0) {
+    //   filteredRatingData = ratingFilterMod(rating, filteredProductData);
+    //   filteredRatingData.length > 0
+    //     ? setFilteredProductData([...filteredRatingData])
+    //     : alert("No Rating Match");
+    //   //setFilteredProductData([...ratingFilterMod(rating, filteredProductData)]);
+    // } else {
+    //   filteredRatingData = ratingFilterMod(rating, productData);
+    //   filteredRatingData.length > 0
+    //     ? setFilteredProductData([...filteredRatingData])
+    //     : alert("No Rating Match");
+    // }
     if (rating === "4-star") {
       if (filteredProductData.length === 0) {
         filteredRatingData.push(
@@ -175,7 +258,7 @@ const ProductPg = () => {
       }
     } else {
       console.log("something WRONG/No rating");
-    }
+     }
   };
 
   //* handling sortBy filter
@@ -216,9 +299,9 @@ const ProductPg = () => {
           filteredSortData.push(
             ...Object.values(productData).sort((a, b) => {
               if (Number(a.price) < Number(b.price)) {
-                return -1;
-              } else {
                 return 1;
+              } else {
+                return -1;
               }
             })
           );
@@ -230,7 +313,16 @@ const ProductPg = () => {
         console.log("Wrong Sort/No sort");
     }
   };
-  console.log("YOYO", filteredProductData);
+
+  const handlePriceFilterData = (sliderCost) => {
+    if (filteredProductData.length > 0) {
+      setFilteredProductData([...priceFilter(filteredProductData, sliderCost)]);
+    } else {
+      setFilteredProductData([...priceFilter(productData, sliderCost)]);
+    }
+    if (ratingFilter !== "") {
+    }
+  };
   //* handling  filter clear
   const handleClearFilter = () => {
     setCheckFilter(
