@@ -6,6 +6,7 @@ const ratingFilterMod = (rating, data) => {
     );
     if (filteredRatingData.length === 0) {
       alert("No Product Matching");
+      filteredRatingData= -1
     }
   } else if (rating === "3-star") {
     filteredRatingData.push(
@@ -13,6 +14,7 @@ const ratingFilterMod = (rating, data) => {
     );
     if (filteredRatingData.length === 0) {
       alert("No Product Matching");
+      filteredRatingData= -1
     }
   } else if (rating === "2-star") {
     filteredRatingData.push(
@@ -20,6 +22,7 @@ const ratingFilterMod = (rating, data) => {
     );
     if (filteredRatingData.length === 0) {
       alert("No Product Matching");
+      filteredRatingData= -1
     }
   } else if (rating === "1-star") {
     filteredRatingData.push(
@@ -27,6 +30,7 @@ const ratingFilterMod = (rating, data) => {
     );
     if (filteredRatingData.length === 0) {
       alert("No Product Matching");
+      filteredRatingData= -1
     }
   } else {
     console.log("something WRONG/No rating");
