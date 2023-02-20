@@ -6,6 +6,8 @@ import { useProductContext } from "../../context/productProvider";
 import { useCategoryContext } from "../../context/categoryProvider";
 import priceFilter from "../../Components/Productfilters/priceFilter";
 import ratingFilterMod from "../../Components/Productfilters/ratingFilterMod";
+import sortByFilterMod from "../../Components/Productfilters/sortByFilterMod";
+import categoryFilterMod from "../../Components/Productfilters/categoryFilterMod";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -39,7 +41,7 @@ const ProductPg = () => {
     let timeout;
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      handlePriceFilterData(sliderFilter);
+      handlePriceSliderFilterData(sliderFilter);
     }, 1000);
   }, [sliderFilter]);
 
@@ -84,80 +86,32 @@ const ProductPg = () => {
   //* handling category filter
   const handleCategoryFilteredData = () => {
     setFilteredProductData([]);
-    let checkFilterDummy = [];
     let filteredProductDataDummy = [];
 
     if (ratingFilter !== "") {
-      Object.keys(checkFilter).map((itm, key) => {
-        if (checkFilter[itm].checked === true) {
-          checkFilterDummy.push(checkFilter[itm]);
-          filteredProductDataDummy.push(
-            ...Object.values(productData).filter(
-              (item) => item.categoryName === checkFilter[itm].categoryName
-            )
-          );
-          if (ratingFilter === "4-star") {
-            filteredProductDataDummy = filteredProductDataDummy.filter(
-              (item) => item.rating === 4
-            );
-          } else if (ratingFilter === "3-star") {
-            filteredProductDataDummy = filteredProductDataDummy.filter(
-              (item) => item.rating === 3
-            );
-          } else if (ratingFilter === "2-star") {
-            filteredProductDataDummy.filter((item) => item.rating === 2);
-          } else if (ratingFilter === "1-star") {
-            filteredProductDataDummy = filteredProductDataDummy.filter(
-              (item) => item.rating === 1
-            );
-          } else {
-            console.log("something WRONG/No rating");
-          }
-          if (filteredProductDataDummy.length === 0) {
-            handleClearFilter();
-            alert("No Product Matching");
-          }
-          setFilteredProductData([...filteredProductDataDummy]);
-        }
-      });
+      filteredProductDataDummy = ratingFilterMod(
+        ratingFilter,
+        productData
+      );
+      filteredProductDataDummy !== -1
+        ? setFilteredProductData([...filteredProductDataDummy])
+        : handleClearFilter();
     } else if (sortByFilter !== "") {
-      Object.keys(checkFilter).map((itm, key) => {
-        if (checkFilter[itm].checked === true) {
-          checkFilterDummy.push(checkFilter[itm]);
-          filteredProductDataDummy.push(
-            ...Object.values(productData).filter(
-              (item) => item.categoryName === checkFilter[itm].categoryName
-            )
-          );
-          switch (sortByFilter) {
-            case "LowToHigh":
-              filteredProductDataDummy = filteredProductDataDummy.sort(
-                (a, b) => Number(a.price) - Number(b.price)
-              );
-              break;
-            case "HighToLow":
-              filteredProductDataDummy = filteredProductDataDummy.sort(
-                (a, b) => Number(b.price) - Number(a.price)
-              );
-              break;
-            default:
-              console.log("Wrong Sort/No sort category");
-          }
-          setFilteredProductData([...filteredProductDataDummy]);
-        }
-      });
+      filteredProductDataDummy = sortByFilterMod(
+        productData,
+        sortByFilter
+      );
+      filteredProductDataDummy !== -1
+        ? setFilteredProductData([...filteredProductDataDummy])
+        : console.log("sortby error");
+    } else if (sliderFilter !== 0) {
+      filteredProductDataDummy = priceFilter(
+        productData,
+        sliderFilter
+      );
+      setFilteredProductData([...filteredProductDataDummy]);
     } else {
-      Object.keys(checkFilter).map((itm, key) => {
-        if (checkFilter[itm].checked === true) {
-          checkFilterDummy.push(checkFilter[itm]);
-          filteredProductDataDummy.push(
-            ...Object.values(productData).filter(
-              (item) => item.categoryName === checkFilter[itm].categoryName
-            )
-          );
-          setFilteredProductData([...filteredProductDataDummy]);
-        }
-      });
+      setFilteredProductData([...categoryFilterMod(checkFilter, productData)]);
     }
   };
   console.log("filteredDummyData", filteredProductData);
@@ -177,58 +131,14 @@ const ProductPg = () => {
 
   //* handling sortBy filter
   const handleSortByCostFilterData = (sortBy) => {
-    let filteredSortData = [];
-    switch (sortBy) {
-      case "LowToHigh":
-        if (filteredProductData.length > 0) {
-          filteredSortData.push(
-            ...filteredProductData.sort(
-              (a, b) => Number(a.price) - Number(b.price)
-            )
-          );
-          setFilteredProductData([...filteredSortData]);
-        } else {
-          filteredSortData.push(
-            ...Object.values(productData).sort((a, b) => {
-              if (Number(a.price) >= Number(b.price)) {
-                return 1;
-              } else {
-                return -1;
-              }
-            })
-          );
-          console.log(filteredSortData);
-          setFilteredProductData([...filteredSortData]);
-        }
-        break;
-      case "HighToLow":
-        if (filteredProductData.length > 0) {
-          filteredSortData.push(
-            ...Object.values(filteredProductData).sort(
-              (a, b) => Number(b.price) - Number(a.price)
-            )
-          );
-          setFilteredProductData([...filteredSortData]);
-        } else {
-          filteredSortData.push(
-            ...Object.values(productData).sort((a, b) => {
-              if (Number(a.price) < Number(b.price)) {
-                return 1;
-              } else {
-                return -1;
-              }
-            })
-          );
-          console.log(filteredSortData);
-          setFilteredProductData([...filteredSortData]);
-        }
-        break;
-      default:
-        console.log("Wrong Sort/No sort");
-    }
+    let filteredSortData =
+      filteredProductData.length > 0
+        ? sortByFilterMod(filteredProductData, sortBy)
+        : sortByFilterMod(productData, sortBy);
+    setFilteredProductData(filteredSortData);
   };
 
-  const handlePriceFilterData = (sliderCost) => {
+  const handlePriceSliderFilterData = (sliderCost) => {
     if (filteredProductData.length > 0) {
       setFilteredProductData([...priceFilter(filteredProductData, sliderCost)]);
     } else {
