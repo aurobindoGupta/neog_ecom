@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../context/cartProvider";
+import { useWishlistContext } from "../../context/wishlistProvider";
 import "./navbar.css";
 const NavBar = () => {
   const [cartValue] = useCartContext();
+  const[wishlistValue]= useWishlistContext()
   let navigate = useNavigate();
   return (
     <div>
@@ -29,7 +31,7 @@ const NavBar = () => {
           <li className="navLinksBtn" onClick={() => navigate("/wishlistPg")}>
             <div className="ic-badge container">
               <i className="fa fa-heart ic"></i>
-              <div className="iconBadge">0</div>
+              <div className="iconBadge">{wishlistValue.length}</div>
             </div>
           </li>
           <li className="navLinksBtn" onClick={() => navigate("/cartPg")}>

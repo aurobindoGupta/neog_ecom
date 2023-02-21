@@ -89,26 +89,17 @@ const ProductPg = () => {
     let filteredProductDataDummy = [];
 
     if (ratingFilter !== "") {
-      filteredProductDataDummy = ratingFilterMod(
-        ratingFilter,
-        productData
-      );
+      filteredProductDataDummy = ratingFilterMod(ratingFilter, productData);
       filteredProductDataDummy !== -1
         ? setFilteredProductData([...filteredProductDataDummy])
         : handleClearFilter();
     } else if (sortByFilter !== "") {
-      filteredProductDataDummy = sortByFilterMod(
-        productData,
-        sortByFilter
-      );
+      filteredProductDataDummy = sortByFilterMod(productData, sortByFilter);
       filteredProductDataDummy !== -1
         ? setFilteredProductData([...filteredProductDataDummy])
         : console.log("sortby error");
     } else if (sliderFilter !== 0) {
-      filteredProductDataDummy = priceFilter(
-        productData,
-        sliderFilter
-      );
+      filteredProductDataDummy = priceFilter(productData, sliderFilter);
       setFilteredProductData([...filteredProductDataDummy]);
     } else {
       setFilteredProductData([...categoryFilterMod(checkFilter, productData)]);
@@ -369,13 +360,6 @@ const ProductPg = () => {
                 <p>
                   Showing All Products{" "}
                   {sliderFilter !== 0 ? `[Below: Rs.${sliderFilter}]` : ``}
-                  {checkFilter !== { Men: false, Women: false }
-                    ? checkFilter.Men
-                      ? "[Gender: Men]"
-                      : checkFilter.Women
-                      ? "[Gender: Women]"
-                      : ""
-                    : ``}
                   {ratingFilter !== "" ? `[Rating: ${ratingFilter}]` : ``}
                   {sortByFilter !== "" ? `[Sorted By: ${sortByFilter}]` : ``}
                 </p>
@@ -396,16 +380,7 @@ const ProductPg = () => {
                     })
                   : Object.values(productData).map((item, key) => {
                       //console.log("HELLO", filteredProductData);
-                      return (
-                        <ProductCard
-                          productTitle={item.title}
-                          subTitle={item.categoryName}
-                          cost={item.price}
-                          productImg={item.images}
-                          productId={item._id}
-                          key={key}
-                        />
-                      );
+                      return <ProductCard indiData={item} key={key} />;
                     })}
               </div>
             </div>
