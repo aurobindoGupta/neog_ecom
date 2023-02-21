@@ -9,6 +9,7 @@ import { CartProvider } from "./context/cartProvider";
 import { ProductProvider } from "./context/productProvider";
 import { CategoryProvider } from "./context/categoryProvider";
 import { WishlistProvider } from "./context/wishlistProvider";
+import { NavSearchProvider } from "./context/navSearchProvider";
 
 // Call make Server
 makeServer();
@@ -18,11 +19,13 @@ ReactDOM.render(
     <ProductProvider>
       <CategoryProvider>
         <FilterProvider>
-          <WishlistProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </WishlistProvider>
+          <NavSearchProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <App />
+              </CartProvider>
+            </WishlistProvider>
+          </NavSearchProvider>
         </FilterProvider>
       </CategoryProvider>
     </ProductProvider>

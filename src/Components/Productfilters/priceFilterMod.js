@@ -1,4 +1,4 @@
-const priceFilter=(data, sliderCost)=>{
+const priceFilterMod=(data, sliderCost)=>{
     let filteredCostDataDummy=[]
     if(data.length>0){
       filteredCostDataDummy = Object.values(data).filter((item)=>{
@@ -10,4 +10,4 @@ const priceFilter=(data, sliderCost)=>{
     }
     return filteredCostDataDummy;
 }
-export default priceFilter;
+export default priceFilterMod;

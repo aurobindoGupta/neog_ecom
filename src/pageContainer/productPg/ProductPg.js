@@ -4,10 +4,12 @@ import NavBar from "../../Components/navbar/NavBar";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
 import { useProductContext } from "../../context/productProvider";
 import { useCategoryContext } from "../../context/categoryProvider";
-import priceFilter from "../../Components/Productfilters/priceFilter";
+import priceFilterMod from "../../Components/Productfilters/priceFilterMod";
 import ratingFilterMod from "../../Components/Productfilters/ratingFilterMod";
 import sortByFilterMod from "../../Components/Productfilters/sortByFilterMod";
 import categoryFilterMod from "../../Components/Productfilters/categoryFilterMod";
+import { useNavSearchContext } from "../../context/navSearchProvider";
+import searchBarFilterMod from "../../Components/Productfilters/searchBarFilterMod";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -17,6 +19,7 @@ const ProductPg = () => {
   const [filteredProductData, setFilteredProductData] = useState([]);
   const [productData] = useProductContext();
   const [categoryData] = useCategoryContext();
+  const [searchBarInput, setSearchBarInput] = useNavSearchContext();
   useEffect(() => {
     const handleCategoryData = () => {
       const categoryFilterDummy = [];
@@ -36,6 +39,13 @@ const ProductPg = () => {
     };
     handleCategoryData();
   }, [categoryData]);
+  useEffect(() => {
+    let timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      handleSearchbBar(searchBarInput);
+    }, 1000);
+  }, [searchBarInput]);
 
   useEffect(() => {
     let timeout;
@@ -47,10 +57,14 @@ const ProductPg = () => {
 
   useEffect(() => {
     let timeout;
+    let flag = checkFilter.filter((item) => item.checked);
     clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      handleCategoryFilteredData();
-    }, 1000);
+
+    if (flag.length !== 0) {
+      timeout = setTimeout(() => {
+        handleCategoryFilteredData();
+      }, 1000);
+    }
   }, [checkFilter]);
 
   useEffect(() => {
@@ -68,6 +82,27 @@ const ProductPg = () => {
       handleSortByCostFilterData(sortByFilter);
     }, 1000);
   }, [sortByFilter]);
+
+  //*handle search bar
+  const handleSearchbBar = (searchInput) => {
+    console.log("searchInput", searchInput);
+    let searchbarDummy = [];
+    if (
+      searchInput !== undefined &&
+      searchInput !== null &&
+      searchInput !== ""
+    ) {
+      searchbarDummy = searchBarFilterMod(productData, searchInput);
+      handleClearFilter();
+    }
+    console.log(typeof searchbarDummy);
+    if (searchbarDummy === -1 && searchInput !== "") {
+      setSearchBarInput("");
+      handleClearFilter();
+    } else {
+      setFilteredProductData([...searchbarDummy]);
+    }
+  };
 
   //* handle checked/unchecked
   const handleCheckFilter = (checkFilterDataItem) => {
@@ -99,7 +134,7 @@ const ProductPg = () => {
         ? setFilteredProductData([...filteredProductDataDummy])
         : console.log("sortby error");
     } else if (sliderFilter !== 0) {
-      filteredProductDataDummy = priceFilter(productData, sliderFilter);
+      filteredProductDataDummy = priceFilterMod(productData, sliderFilter);
       setFilteredProductData([...filteredProductDataDummy]);
     } else {
       setFilteredProductData([...categoryFilterMod(checkFilter, productData)]);
@@ -131,10 +166,13 @@ const ProductPg = () => {
 
   const handlePriceSliderFilterData = (sliderCost) => {
     if (filteredProductData.length > 0) {
-      setFilteredProductData([...priceFilter(filteredProductData, sliderCost)]);
+      setFilteredProductData([
+        ...priceFilterMod(filteredProductData, sliderCost),
+      ]);
     } else {
-      setFilteredProductData([...priceFilter(productData, sliderCost)]);
+      setFilteredProductData([...priceFilterMod(productData, sliderCost)]);
     }
+    //!here
     if (ratingFilter !== "") {
     }
   };
@@ -367,16 +405,7 @@ const ProductPg = () => {
               <div className="product-list">
                 {filteredProductData.length > 0
                   ? Object.values(filteredProductData).map((item, key) => {
-                      return (
-                        <ProductCard
-                          productTitle={item.title}
-                          subTitle={item.categoryName}
-                          cost={item.price}
-                          productImg={item.images}
-                          productId={item._id}
-                          key={key}
-                        />
-                      );
+                      return <ProductCard indiData={item} key={key} />;
                     })
                   : Object.values(productData).map((item, key) => {
                       //console.log("HELLO", filteredProductData);
