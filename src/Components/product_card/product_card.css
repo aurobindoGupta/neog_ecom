@@ -5,4 +5,10 @@
 }
 .card-img-container {
   background: var(--primary-color);
+  justify-content: center;
+  height: 50%;
+}
+.card-img {
+  max-height: 100%;
+  overflow: auto;
 }
