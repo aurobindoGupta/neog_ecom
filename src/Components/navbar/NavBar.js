@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../context/cartProvider";
@@ -5,22 +6,28 @@ import { useNavSearchContext } from "../../context/navSearchProvider";
 import { useWishlistContext } from "../../context/wishlistProvider";
 import "./navbar.css";
 const NavBar = () => {
-  const [searchBarValue, setSearchBarValue] = useState();
+  const [searchBarValue, setSearchBarValue] = useState('');
   const [cartValue] = useCartContext();
   const [wishlistValue] = useWishlistContext();
-  const [searchBarInput,setSearchBarInput] = useNavSearchContext();
+  const [searchBarInput, setSearchBarInput] = useNavSearchContext();
 
   let navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("yoyoyo",searchBarInput);
+    setSearchBarValue(searchBarInput);
+  }, [searchBarInput]);
+
   const handleSearchBarInput = (e) => {
     let timer;
     e.preventDefault();
     setSearchBarValue(e.target.value);
     clearTimeout(timer);
-    timer = setTimeout(()=>{
+    timer = setTimeout(() => {
       setSearchBarInput(e.target.value);
-    },2000)
+    }, 2000);
   };
-
+console.log(searchBarValue);
   return (
     <div>
       <nav className="navBar">

@@ -97,7 +97,7 @@ const ProductPg = () => {
     }
     console.log(typeof searchbarDummy);
     if (searchbarDummy === -1 && searchInput !== "") {
-      setSearchBarInput("");
+      setSearchBarInput('');
       handleClearFilter();
     } else {
       setFilteredProductData([...searchbarDummy]);
