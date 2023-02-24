@@ -1,21 +1,24 @@
 import "./cartPg.css";
+import { v4 as uuid } from "uuid";
 import { default as HorizontalCard } from "../../Components/horizontal_card/Horizontal_Card";
 import NavBar from "../../Components/navbar/NavBar";
 import image_1 from "../../utils/images/image_1.webp";
 import { useCartContext } from "../../context/cartProvider";
 
 const CartPg = () => {
-  const [cartValue] = useCartContext();
+  const [cartValue, setCartValue] = useCartContext();
 
   const defaultData = {
+    id: uuid(),
     productData: {
       title: "Empty cart",
       categoryName: "Sub-title",
-      price: "Rs. 0",
+      price: 0,
       images: image_1 ,
     },
+    qty:0
   };
-  console.log(cartValue);
+ console.log(cartValue);
   return (
     <div className="cartPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -33,8 +36,8 @@ const CartPg = () => {
           <div className="cart-pg">
             <div className="cart-content">
               {cartValue.length > 0 ? (
-                Object.values(cartValue).map((item) => {
-                  return <HorizontalCard data={item}></HorizontalCard>;
+                Object.values(cartValue).map((item,key) => {
+                  return <HorizontalCard data={item} id={key}></HorizontalCard>;
                 })
               ) : (
                 <HorizontalCard data={defaultData}></HorizontalCard>
