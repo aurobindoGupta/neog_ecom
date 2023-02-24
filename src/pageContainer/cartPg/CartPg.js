@@ -4,9 +4,13 @@ import { default as HorizontalCard } from "../../Components/horizontal_card/Hori
 import NavBar from "../../Components/navbar/NavBar";
 import image_1 from "../../utils/images/image_1.webp";
 import { useCartContext } from "../../context/cartProvider";
+import { useState } from "react";
 
 const CartPg = () => {
-  const [cartValue, setCartValue] = useCartContext();
+  const[distcountCode, setDiscountCode]= useState('');
+  const[distcountValue, setDiscountValue]= useState(0);
+  const[deliveryCharge, setDeliveryCharge]= useState(500);
+  const [cartValue] = useCartContext();
 
   const defaultData = {
     id: uuid(),
@@ -19,6 +23,31 @@ const CartPg = () => {
     qty: 0,
   };
   console.log(cartValue);
+  const handleDiscount=(e)=>{
+    e.preventDefault();
+    let code= distcountCode;
+    let tempDiscountValue= 0
+    if(cartValue.length>0){
+      switch(code){
+        case 'dis10':
+          tempDiscountValue= Number(handleCartTotal()) * 0.1
+          break;
+        case 'dis25':
+          tempDiscountValue= Number(handleCartTotal()) * 0.25
+          break;
+        default: 
+          tempDiscountValue= 0;
+
+      }
+    }
+    else{
+      if(code!=='')
+      {
+      console.log('No DICOUNT');
+      }
+    }
+    setDiscountValue(tempDiscountValue);
+  }
   const handleCartTotal = () => {
     let total = 0;
     cartValue.map((item) => {
@@ -58,6 +87,10 @@ const CartPg = () => {
               )}
             </div>
             <div className="bill-content">
+            <div className="discount-row">
+              <input className="discount-input" type='text' onChange={(e)=> setDiscountCode(e.target.value)}/>
+              <button className="btn btn-secondary discount-btn" type='submit' onClick={(e)=>handleDiscount(e)}>Go</button>
+            </div>
               <div className="bill-header fw-semiBold">
                 <p>PRICE DETAILS</p>
               </div>
@@ -69,16 +102,16 @@ const CartPg = () => {
                 </div>
                 <div className="discount-total indi-row">
                   <p>Discount</p>
-                  <p>- Rs.1207</p>
+                  <p>- Rs.{distcountValue}</p>
                 </div>
                 <div className="dilevery-total indi-row">
                   <p>Delivery Charges</p>
-                  <p>Rs.500</p>
+                  <p>Rs.{deliveryCharge}</p>
                 </div>
                 <hr />
                 <div className="total-amt indi-row fw-semiBold">
                   <p>TOTAL AMOUNT</p>
-                  <p>Rs.{handleGrossTotal(handleCartTotal(),1207,500)}</p>
+                  <p>Rs.{handleGrossTotal(handleCartTotal(),distcountValue,deliveryCharge)}</p>
                 </div>
                 <hr />
                 <p>You will save Rs.1999 on this order</p>

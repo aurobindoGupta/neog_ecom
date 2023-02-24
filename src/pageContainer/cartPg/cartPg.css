@@ -10,9 +10,13 @@
   align-items: center;
   justify-content: center;
 }
+.cart-content{
+  width: 75%;
+}
 .bill-content {
   background: var(--stdWhite-color);
-  max-width: 30%;
+  width: 30%;
+  min-width: 25%;
   margin: 1rem;
   height: fit-content;
   padding: 2.5rem;
@@ -30,4 +34,12 @@
 }
 .card-pg-title {
   padding: 2rem;
+}
+.discount-btn{
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.1rem;
+ 
+}
+.discount-input{
+  border-radius: 0.2rem;
 }
