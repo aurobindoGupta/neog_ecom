@@ -14,11 +14,25 @@ const CartPg = () => {
       title: "Empty cart",
       categoryName: "Sub-title",
       price: 0,
-      images: image_1 ,
+      images: image_1,
     },
-    qty:0
+    qty: 0,
   };
- console.log(cartValue);
+  console.log(cartValue);
+  const handleCartTotal = () => {
+    let total = 0;
+    cartValue.map((item) => {
+      total = total + Number(item.productData.price);
+      return total;
+    });
+    return total;
+  };
+  const handleGrossTotal = (cartTotal, discount, deliveryCharge) => {
+    let total = 0;
+    total = Number(cartTotal) - Number(discount) + Number(deliveryCharge);
+
+    return total;
+  };
   return (
     <div className="cartPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -36,7 +50,7 @@ const CartPg = () => {
           <div className="cart-pg">
             <div className="cart-content">
               {cartValue.length > 0 ? (
-                Object.values(cartValue).map((item,key) => {
+                Object.values(cartValue).map((item, key) => {
                   return <HorizontalCard data={item} id={key}></HorizontalCard>;
                 })
               ) : (
@@ -50,8 +64,8 @@ const CartPg = () => {
               <hr />
               <div className="order-content">
                 <div className="cost-total indi-row">
-                  <p>Price(2 Items)</p>
-                  <p>Rs.5409</p>
+                  <p>Price({cartValue.length} Items)</p>
+                  <p>Rs.{handleCartTotal()}</p>
                 </div>
                 <div className="discount-total indi-row">
                   <p>Discount</p>
@@ -64,7 +78,7 @@ const CartPg = () => {
                 <hr />
                 <div className="total-amt indi-row fw-semiBold">
                   <p>TOTAL AMOUNT</p>
-                  <p>Rs.3508</p>
+                  <p>Rs.{handleGrossTotal(handleCartTotal(),1207,500)}</p>
                 </div>
                 <hr />
                 <p>You will save Rs.1999 on this order</p>
