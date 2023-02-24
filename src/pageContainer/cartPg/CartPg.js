@@ -1,4 +1,3 @@
-
 import "./cartPg.css";
 import { default as HorizontalCard } from "../../Components/horizontal_card/Horizontal_Card";
 import NavBar from "../../Components/navbar/NavBar";
@@ -7,7 +6,16 @@ import { useCartContext } from "../../context/cartProvider";
 
 const CartPg = () => {
   const [cartValue] = useCartContext();
- console.log(cartValue);
+
+  const defaultData = {
+    productData: {
+      title: "Empty cart",
+      categoryName: "Sub-title",
+      price: "Rs. 0",
+      images: image_1 ,
+    },
+  };
+  console.log(cartValue);
   return (
     <div className="cartPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -19,24 +27,18 @@ const CartPg = () => {
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
         <div className="page-content">
-          <p className="card-pg-title fw-bold fs-M">My CART({cartValue.length})</p>
+          <p className="card-pg-title fw-bold fs-M">
+            My CART({cartValue.length})
+          </p>
           <div className="cart-pg">
             <div className="cart-content">
-              <HorizontalCard
-                productTitle="Winter Jacket"
-                productSubtitle="Sub-title"
-                productCost="Rs. 5500"
-
-                productImg={image_1}
-
-              />
-              <HorizontalCard
-                productTitle="Winter Jacket"
-                productSubtitle="Sub-title"
-                productCost="Rs. 5500"
-
-                productImg={image_1}
-              />
+              {cartValue.length > 0 ? (
+                Object.values(cartValue).map((item) => {
+                  return <HorizontalCard data={item}></HorizontalCard>;
+                })
+              ) : (
+                <HorizontalCard data={defaultData}></HorizontalCard>
+              )}
             </div>
             <div className="bill-content">
               <div className="bill-header fw-semiBold">

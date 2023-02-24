@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import "./product_card.css";
 import image_1 from "../../utils/images/image_1.webp";
 import { useCartContext } from "../../context/cartProvider";
