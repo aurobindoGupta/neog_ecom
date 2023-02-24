@@ -15,7 +15,8 @@ const searchBarFilterMod = (data, input) => {
   });
   console.log("yoyoy", searchBarDummy === undefined);
   if (searchBarDummy.length === 0 && input !== "") {
-    alert("empty");
+    //! add toast
+    alert("No Match");
     return -1;
   } else {
     return searchBarDummy;
