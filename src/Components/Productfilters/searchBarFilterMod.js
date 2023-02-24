@@ -1,4 +1,3 @@
-import { useNavSearchContext } from "../../context/navSearchProvider";
 
 const searchBarFilterMod = (data, input) => {
   console.log(data, input);
@@ -9,14 +8,15 @@ const searchBarFilterMod = (data, input) => {
     let title = item.title;
     let brand = item.brand ? item.brand : "";
     return (
-      inputUpperCase === categoryName.toUpperCase() ||
-      inputUpperCase === title.toUpperCase() ||
-      inputUpperCase === brand.toUpperCase()
+      categoryName.toUpperCase().includes(inputUpperCase) ||
+      title.toUpperCase().includes(inputUpperCase) ||
+      brand.toUpperCase().includes(inputUpperCase)
     );
   });
   console.log("yoyoy", searchBarDummy === undefined);
   if (searchBarDummy.length === 0 && input !== "") {
-    alert("empty");
+    //! add toast
+    alert("No Match");
     return -1;
   } else {
     return searchBarDummy;
