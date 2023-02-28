@@ -1,15 +1,29 @@
 import { useState } from "react";
-import axios from "axios";
 import "./product_card.css";
 import image_1 from "../../utils/images/image_1.webp";
 import { useCartContext } from "../../context/cartProvider";
 import { useWishlistContext } from "../../context/wishlistProvider";
+import { useEffect } from "react";
 
 const Product_Card = ({ indiData }) => {
   const [addToWishlist, setAddToWishlist] = useState(false);
   const [addToCart, setAddToCart] = useState(false);
   const [cartValue, setCartValue] = useCartContext();
   const [wishlistValue, setWishlistValue]=useWishlistContext();
+  useEffect(() => {
+   wishlistValue.forEach((item)=>{
+    if(item.productData._id === indiData._id){
+      setAddToWishlist(true);
+    }
+   })
+  }, [wishlistValue])
+  useEffect(() => {
+    cartValue.forEach((item)=>{
+     if(item.productData._id === indiData._id){
+       setAddToCart(true);
+     }
+    })
+   }, [cartValue])
   const handleAddTocart = (data) => {
     //TODO:add toast
     setAddToCart(!addToCart);
@@ -18,7 +32,7 @@ const Product_Card = ({ indiData }) => {
       console.log(tempArr);
       setCartValue(tempArr);
     } else {
-      setCartValue([...cartValue, { id: cartValue.length++, productData: data }]);
+      setCartValue([...cartValue, { id: cartValue.length++, productData: data, qty: 1 }]);
     }
   };
 const handleAddToWishlist=(data)=>{

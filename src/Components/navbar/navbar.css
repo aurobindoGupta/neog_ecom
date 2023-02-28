@@ -37,3 +37,6 @@
   transform: scale(0.98);
   font-size: 1rem;
 }
+.hidden{
+  visibility: hidden;
+}

@@ -3,7 +3,7 @@ import "./wishlist_card.css";
 const WishList_Card = ({ productTitle, productSubTitle, productCost, productImg }) => {
   const [wishList, setWishList]= useState(false);
   return (
-    <div class="wishList-content">
+    <div className="wishList-content">
       <div className="card">
         <div className="card-img-container">
         <i className={`fa ${wishList?"fa-heart":"fa-heart-o"} icon-badge`} onClick={()=>setWishList(!wishList)}></i>
@@ -16,8 +16,8 @@ const WishList_Card = ({ productTitle, productSubTitle, productCost, productImg 
             <p className="current-price">Rs.{productCost}</p>
           </div>
         </div>
-        <div class="card-button">
-          <button class="btn btn-secondary button-add">Move to Cart</button>
+        <div className="card-button">
+          <button className="btn btn-secondary button-add">Move to Cart</button>
         </div>
       </div>
     </div>

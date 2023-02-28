@@ -5,7 +5,7 @@ import { useCartContext } from "../../context/cartProvider";
 import { useNavSearchContext } from "../../context/navSearchProvider";
 import { useWishlistContext } from "../../context/wishlistProvider";
 import "./navbar.css";
-const NavBar = () => {
+const NavBar = (props) => {
   const [searchBarValue, setSearchBarValue] = useState('');
   const [cartValue] = useCartContext();
   const [wishlistValue] = useWishlistContext();
@@ -36,7 +36,7 @@ console.log(searchBarValue);
             MyWebsite
           </p>
         </div>
-        <div className="navBar-searchBar">
+        <div className={`navBar-searchBar ${props.searchBar?'hidden':null}`}>
           <form className="searchBar">
             <input
               className="searchBar-input"

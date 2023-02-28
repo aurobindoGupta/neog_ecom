@@ -3,10 +3,13 @@ import "./wishlistPg.css";
 import NavBar from "../../Components/navbar/NavBar";
 import { default as WishListCard } from "../../Components/wishlist_card/WishList_Card";
 import image_1 from "../../utils/images/image_1.webp";
+import { useWishlistContext } from "../../context/wishlistProvider";
 
 
 
 const WishListPg = () => {
+  const[wishlistValue]= useWishlistContext();
+  console.log("WISH",wishlistValue);
   return (
     <div className="wishlistPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -15,7 +18,7 @@ const WishListPg = () => {
 
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar />
+        <NavBar searchBar={true}/>
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
