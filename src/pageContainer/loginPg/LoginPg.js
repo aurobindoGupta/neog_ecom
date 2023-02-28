@@ -46,7 +46,7 @@ const LoginPg = () => {
                     <input type="checkbox" id="remember" />
                     <label for="remember">Remember Me</label>
                   </div>
-                  <button class="btn btn-link">Forgot Password?</button>
+                  <button class="btn btn-link loginBtn">Forgot Password?</button>
                 </div>
               </div>
               <div class="modal-btn">
