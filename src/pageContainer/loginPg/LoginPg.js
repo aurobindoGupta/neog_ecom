@@ -66,15 +66,16 @@ const LoginPg = () => {
   };
   const handleLoginApiCall = async (emailId, pass) => {
     console.log("ymomomom", emailId, pass);
-    const res = await axios({
+    const resp = axios({
       method: "POST",
-      url: "/api/auth/login",
-      requestBody: {
-        email: emailId,
-        password: pass,
+      url: "api/auth/login",
+      data: {
+        'email': emailId,
+        'password': pass,
       },
-    });
-    console.log("aloo", res);
+    }).then(res=>console.log(res));
+    console.log("aloo",resp);
+    
   };
   return (
     <div className="loginPg">
