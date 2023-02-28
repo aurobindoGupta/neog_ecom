@@ -1,58 +1,155 @@
+import axios from "axios";
+import { useState } from "react";
 import NavBar from "../../Components/navbar/NavBar";
 import "./loginPg.css";
 const LoginPg = () => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [formError, setFormError] = useState({ email: "", password: "" });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email && !password) {
+      setFormError({
+        email: "input Feild Can not be empty",
+        password: "input Feild Can not be empty",
+      });
+    } else if (email && !password) {
+      if (email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+        setFormError({ email: "", password: "input Feild Can not be empty" });
+      } else {
+        setFormError({
+          email: "Invalid Email",
+          password: "input Feild Can not be empty",
+        });
+      }
+    } else if (!email && password) {
+      if (password.length >= 6) {
+        setFormError({ email: "input Feild Can not be empty", password: "" });
+      } else {
+        setFormError({
+          email: "input Feild Can not be empty",
+          password: "Password length cant be less than 6",
+        });
+      }
+    } else {
+      if (
+        email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
+        password.length >= 6
+      ) {
+        setFormError({
+          email: "",
+          password: "",
+        });
+        handleLoginApiCall(email, password);
+      } else if (
+        !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
+        password.length >= 6
+      ) {
+        setFormError({ email: "Invalid Email", password: "" });
+      } else if (
+        email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
+        password.length < 6
+      ) {
+        setFormError({
+          email: "",
+          password: "Password length cant be less than 6",
+        });
+      } else {
+        setFormError({
+          email: "Invalid Email",
+          password: "Password length cant be less than 6",
+        });
+      }
+    }
+    console.log({ email, password });
+  };
+  const handleLoginApiCall = async (emailId, pass) => {
+    console.log("ymomomom", emailId, pass);
+    const res = await axios({
+      method: "POST",
+      url: "/api/auth/login",
+      requestBody: {
+        email: emailId,
+        password: pass,
+      },
+    });
+    console.log("aloo", res);
+  };
   return (
     <div className="loginPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
-      <div class="baseContainer">
+      <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar />
+        <NavBar searchBar={true} loginPg={true} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
-        <div class="page-content">
-          <div class="login-Modal">
-            <div class="modal-container">
-              <div class="modal-title">
-                <p class="fw-bold fs-L">Login</p>
+        <div className="page-content">
+          <div className="login-Modal">
+            <div className="modal-container">
+              <div className="modal-title">
+                <p className="fw-bold fs-L">Login</p>
               </div>
-              <div class="form-input">
-                <div class="input-details">
-                  <label class="input-label" for="input-email">
+              <div className="form-input">
+                <div className="input-details">
+                  <label className="input-label" htmlFor="input-email">
                     Email
                   </label>
+                  <span className="error">{formError.email}</span>
                   <input
                     type="email"
                     placeholder="jhondoe@gmail.com"
-                    class="input-space full-form input-email"
+                    className={`input-space full-form input-email ${
+                      formError.email ? "vibrate" : null
+                    }`}
                     id="input-email"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                     required
                   />
-                  <label class="input-label" for="input-pass">
+                  <label className="input-label" htmlFor="input-pass">
                     Password
                   </label>
+                  <span className="error">{formError.password}</span>
                   <input
                     type="password"
                     placeholder="1234567890"
-                    maxlength="10"
-                    class="input-space full-form input-pass"
+                    maxLength={15}
+                    className={`input-space full-form input-pass ${
+                      formError.password ? "vibrate" : null
+                    }`}
                     id="input-pass"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                     required
                   />
                 </div>
-                <div class="form-utils">
-                  <div class="util-input">
+                <div className="form-utils">
+                  <div className="util-input">
                     <input type="checkbox" id="remember" />
-                    <label for="remember">Remember Me</label>
+                    <label htmlFor="remember">Remember Me</label>
                   </div>
-                  <button class="btn btn-link loginBtn">Forgot Password?</button>
+                  <button className="btn btn-link loginBtn">
+                    Forgot Password?
+                  </button>
                 </div>
               </div>
-              <div class="modal-btn">
-                <button class="btn btn-primary">Login</button>
+              <div className="modal-btn">
                 <button
-                  class="btn btn-link"
+                  className="btn btn-primary"
+                  type="submit"
+                  onClick={(e) => {
+                    handleSubmit(e);
+                  }}
+                >
+                  Login
+                </button>
+                <button
+                  className="btn btn-link"
                   onclick="window.location.href='/components/signupPg/index.html'"
                 >
                   Create New Account

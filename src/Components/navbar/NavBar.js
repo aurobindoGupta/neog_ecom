@@ -49,7 +49,7 @@ console.log(searchBarValue);
         <ul className="navLinks">
           <li className="navLinksBtn">
             <button
-              className="btn btn-secondary"
+              className={`btn btn-secondary ${props.loginPg?'hidden':null}`}
               onClick={() => navigate("/loginPg")}
             >
               Login
