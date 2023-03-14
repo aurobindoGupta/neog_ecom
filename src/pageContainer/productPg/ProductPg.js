@@ -10,6 +10,7 @@ import sortByFilterMod from "../../Components/Productfilters/sortByFilterMod";
 import categoryFilterMod from "../../Components/Productfilters/categoryFilterMod";
 import { useNavSearchContext } from "../../context/navSearchProvider";
 import searchBarFilterMod from "../../Components/Productfilters/searchBarFilterMod";
+import { useLoginContext } from "../../context/loginProvider";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -20,6 +21,8 @@ const ProductPg = () => {
   const [productData] = useProductContext();
   const [categoryData] = useCategoryContext();
   const [searchBarInput, setSearchBarInput] = useNavSearchContext();
+  const [isLoggegIn] = useLoginContext();
+  console.log({isLoggegIn});
   useEffect(() => {
     const handleCategoryData = () => {
       const categoryFilterDummy = [];
@@ -97,7 +100,7 @@ const ProductPg = () => {
     }
     console.log(typeof searchbarDummy);
     if (searchbarDummy === -1 && searchInput !== "") {
-      setSearchBarInput('');
+      setSearchBarInput("");
       handleClearFilter();
     } else {
       setFilteredProductData([...searchbarDummy]);
@@ -203,7 +206,7 @@ const ProductPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar />
+        <NavBar loginPg={isLoggegIn? true:false} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 

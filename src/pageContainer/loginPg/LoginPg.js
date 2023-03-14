@@ -82,8 +82,14 @@ const LoginPg = () => {
         setIsLoggedIn(true);
         navigate("/productPg");
       }
+      else{
+        setIsLoggedIn(false);
+      }
     });
   };
+  const handleTestLogin=()=>{
+   handleLoginApiCall('adarshbalika@gmail.com','adarshbalika');
+  }
   return (
     <div className="loginPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -137,10 +143,8 @@ const LoginPg = () => {
                   />
                 </div>
                 <div className="form-utils">
-                  <div className="util-input">
-                    <input type="checkbox" id="remember" />
-                    <label htmlFor="remember">Remember Me</label>
-                  </div>
+                  <button className="btn btn-link loginBtn" onClick={()=>handleTestLogin()}>Test Login.</button>
+
                   <button className="btn btn-link loginBtn">
                     Forgot Password?
                   </button>
@@ -158,7 +162,7 @@ const LoginPg = () => {
                 </button>
                 <button
                   className="btn btn-link"
-                  onClick={()=>navigate("/signUpPg")}
+                  onClick={() => navigate("/signUpPg")}
                 >
                   Create New Account
                 </button>
