@@ -3,89 +3,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/navbar/NavBar";
 import { useLoginContext } from "../../context/loginProvider";
-import "./loginPg.css";
-const LoginPg = () => {
+import "./signUpPg.css";
+const SignUpPg = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [formError, setFormError] = useState({ email: "", password: "" });
   const [isLoggegIn, setIsLoggedIn] = useLoginContext();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!email && !password) {
-      setFormError({
-        email: "input Feild Can not be empty",
-        password: "input Feild Can not be empty",
-      });
-    } else if (email && !password) {
-      if (email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-        setFormError({ email: "", password: "input Feild Can not be empty" });
-      } else {
-        setFormError({
-          email: "Invalid Email",
-          password: "input Feild Can not be empty",
-        });
-      }
-    } else if (!email && password) {
-      if (password.length >= 6) {
-        setFormError({ email: "input Feild Can not be empty", password: "" });
-      } else {
-        setFormError({
-          email: "input Feild Can not be empty",
-          password: "Password length cant be less than 6",
-        });
-      }
-    } else {
-      if (
-        email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
-        password.length >= 6
-      ) {
-        setFormError({
-          email: "",
-          password: "",
-        });
-        handleLoginApiCall(email, password);
-      } else if (
-        !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
-        password.length >= 6
-      ) {
-        setFormError({ email: "Invalid Email", password: "" });
-      } else if (
-        email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
-        password.length < 6
-      ) {
-        setFormError({
-          email: "",
-          password: "Password length cant be less than 6",
-        });
-      } else {
-        setFormError({
-          email: "Invalid Email",
-          password: "Password length cant be less than 6",
-        });
-      }
-    }
-    console.log({ email, password });
-  };
-  const handleLoginApiCall = async (emailId, pass) => {
-    console.log("ymomomom", emailId, pass);
-    const resp = axios({
-      method: "POST",
-      url: "api/auth/login",
-      data: {
-        email: emailId,
-        password: pass,
-      },
-    }).then((res) => {
-      if (res.data.encodedToken) {
-        console.log(res.data.encodedToken);
-        setIsLoggedIn(true);
-        navigate("/productPg");
-      }
-    });
-  };
   return (
-    <div className="loginPg">
+    <div className="signUpPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
@@ -95,17 +21,34 @@ const LoginPg = () => {
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
         <div className="page-content">
-          <div className="login-Modal">
+          <div className="signUp-Modal">
             <div className="modal-container">
               <div className="modal-title">
-                <p className="fw-bold fs-L">Login</p>
+                <p className="fw-bold fs-L">SignUp</p>
               </div>
               <div className="form-input">
                 <div className="input-details">
+                  <label className="input-label" htmlFor="first-name">
+                    First Name
+                  </label>
+                  <input
+                    type="name"
+                    id="first-name"
+                    className="input-space full-form "
+                  />
+                  <label className="input-label" htmlFor="last-name">
+                    Last Name
+                  </label>
+                  <input
+                    type="name"
+                    id="last-name"
+                    className="input-space full-form "
+                  />
+
                   <label className="input-label" htmlFor="input-email">
                     Email
                   </label>
-                  <span className="error">{formError.email}</span>
+                  {/* <span className="error">{formError.email}</span> */}
                   <input
                     type="email"
                     placeholder="jhondoe@gmail.com"
@@ -121,7 +64,7 @@ const LoginPg = () => {
                   <label className="input-label" htmlFor="input-pass">
                     Password
                   </label>
-                  <span className="error">{formError.password}</span>
+                  {/* <span className="error">{formError.password}</span> */}
                   <input
                     type="password"
                     placeholder="1234567890"
@@ -151,16 +94,16 @@ const LoginPg = () => {
                   className="btn btn-primary"
                   type="submit"
                   onClick={(e) => {
-                    handleSubmit(e);
+                    // handleSubmit(e);
                   }}
                 >
-                  Login
+                  Sign Up
                 </button>
                 <button
                   className="btn btn-link"
-                  onClick={()=>navigate("/signUpPg")}
+                  onClick={() => navigate("/loginPg")}
                 >
-                  Create New Account
+                  Already have an account
                 </button>
               </div>
             </div>
@@ -176,4 +119,4 @@ const LoginPg = () => {
     </div>
   );
 };
-export default LoginPg;
+export default SignUpPg;

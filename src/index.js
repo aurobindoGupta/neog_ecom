@@ -10,25 +10,28 @@ import { ProductProvider } from "./context/productProvider";
 import { CategoryProvider } from "./context/categoryProvider";
 import { WishlistProvider } from "./context/wishlistProvider";
 import { NavSearchProvider } from "./context/navSearchProvider";
+import { LoginProvider } from "./context/loginProvider";
 
 // Call make Server
 makeServer();
 
 ReactDOM.render(
   <BrowserRouter>
-    <ProductProvider>
-      <CategoryProvider>
-        <FilterProvider>
-          <NavSearchProvider>
-            <WishlistProvider>
-              <CartProvider>
-                <App />
-              </CartProvider>
-            </WishlistProvider>
-          </NavSearchProvider>
-        </FilterProvider>
-      </CategoryProvider>
-    </ProductProvider>
+    <LoginProvider>
+      <ProductProvider>
+        <CategoryProvider>
+          <FilterProvider>
+            <NavSearchProvider>
+              <WishlistProvider>
+                <CartProvider>
+                  <App />
+                </CartProvider>
+              </WishlistProvider>
+            </NavSearchProvider>
+          </FilterProvider>
+        </CategoryProvider>
+      </ProductProvider>
+    </LoginProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

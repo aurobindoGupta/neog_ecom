@@ -7,6 +7,7 @@ import CartPg from "./pageContainer/cartPg/CartPg";
 import WishListPg from "./pageContainer/wishlistPg/WishListPg";
 import LoginPg from "./pageContainer/loginPg/LoginPg";
 import Mockman from "mockman-js";
+import SignUpPg from "./pageContainer/signUpPg/SignUpPg";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/cartPg" element={<CartPg />} />
         <Route path="/wishlistPg" element={<WishListPg />} />
         <Route path="/loginPg" element={<LoginPg />} />
+        <Route path="/signUpPg" element={<SignUpPg />} />
         <Route path="/mock" element={<Mockman />} />
       </Routes>
     </div>
