@@ -69,7 +69,8 @@ const LoginPg = () => {
   };
   const handleLoginApiCall = async (emailId, pass) => {
     console.log("ymomomom", emailId, pass);
-    const resp = axios({
+   try{
+    axios({
       method: "POST",
       url: "api/auth/login",
       data: {
@@ -78,14 +79,18 @@ const LoginPg = () => {
       },
     }).then((res) => {
       if (res.data.encodedToken) {
-        console.log(res.data.encodedToken);
+        console.log(res.data);
         setIsLoggedIn(true);
+        localStorage.setItem("userData",res.data)
         navigate("/productPg");
       }
       else{
         setIsLoggedIn(false);
       }
-    });
+    }); 
+   }catch(error){
+    console.error(error)
+   }
   };
   const handleTestLogin=()=>{
    handleLoginApiCall('adarshbalika@gmail.com','adarshbalika');
