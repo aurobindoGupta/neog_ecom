@@ -8,14 +8,24 @@ import WishListPg from "./pageContainer/wishlistPg/WishListPg";
 import LoginPg from "./pageContainer/loginPg/LoginPg";
 import Mockman from "mockman-js";
 import SignUpPg from "./pageContainer/signUpPg/SignUpPg";
+import Protected from "./utils/Protected";
+import { useLoginContext } from "./context/loginProvider";
 
 function App() {
+  const [isLoggedIn] = useLoginContext();
   return (
     <div className="App">
       <Routes>
         <Route exact path="/" element={<HomePg />} />
         <Route path="/productPg" element={<ProductPg />} />
-        <Route path="/cartPg" element={<CartPg />} />
+        <Route
+          path="/cartPg"
+          element={
+            <Protected isLoggedIn={isLoggedIn}>
+              <CartPg />
+            </Protected>
+          }
+        />
         <Route path="/wishlistPg" element={<WishListPg />} />
         <Route path="/loginPg" element={<LoginPg />} />
         <Route path="/signUpPg" element={<SignUpPg />} />

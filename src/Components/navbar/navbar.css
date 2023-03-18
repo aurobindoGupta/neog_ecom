@@ -33,10 +33,21 @@
 }
 
 .navLinksBtn:hover {
-  background: none;
-  transform: scale(0.98);
+  background: var(--themeBright-hover-color);
   font-size: 1rem;
 }
 .hidden{
-  visibility: hidden;
+  display: none;
+}
+.userProfile-Dropdown.hidden{
+  display: none;
+}
+.userProfile-Dropdown{
+  background: var(--stdWhite-color);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 3rem;
+  left: -3rem;
+  width: max-content;
 }

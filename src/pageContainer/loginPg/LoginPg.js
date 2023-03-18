@@ -81,7 +81,7 @@ const LoginPg = () => {
       if (res.data.encodedToken) {
         console.log(res.data);
         setIsLoggedIn(true);
-        localStorage.setItem("userData",res.data)
+        localStorage.setItem("userData",JSON.stringify(res.data))
         navigate("/productPg");
       }
       else{
@@ -101,7 +101,7 @@ const LoginPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar searchBar={true} loginPg={true} />
+        <NavBar searchBar={true} login={true} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 

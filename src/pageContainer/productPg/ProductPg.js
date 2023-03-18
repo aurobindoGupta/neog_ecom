@@ -206,7 +206,7 @@ const ProductPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar loginPg={isLoggegIn? true:false} />
+        <NavBar login={isLoggegIn? true:false} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 

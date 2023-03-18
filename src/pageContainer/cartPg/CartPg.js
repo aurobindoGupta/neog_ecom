@@ -68,7 +68,7 @@ const CartPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar searchBar={true}/>
+        <NavBar searchBar={true} login={true}/>
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 

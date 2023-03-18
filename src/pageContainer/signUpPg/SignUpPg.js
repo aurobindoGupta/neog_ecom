@@ -16,7 +16,7 @@ const SignUpPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar searchBar={true} loginPg={true} />
+        <NavBar searchBar={true} login={true} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
