@@ -101,11 +101,11 @@ const LoginPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar searchBar={true} login={true} />
+        <NavBar searchBar={true} navLinks={true} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
-        <div className="page-content">
+        <div className="page-content loginPgContent">
           <div className="login-Modal">
             <div className="modal-container">
               <div className="modal-title">

@@ -50,7 +50,7 @@ const NavBar = (props) => {
   };
   console.log(searchBarValue);
   return (
-    <div>
+    <div className="navBarContainer">
       <nav className="navBar">
         <div className="heroContainer">
           <p className="heroTitle" onClick={() => navigate("/")}>
@@ -70,7 +70,7 @@ const NavBar = (props) => {
           </form>
         </div>
         <div>
-          <ul className="navLinks">
+          <ul className={`navLinks ${props.navLinks?'hidden':null}`}>
             <li className={`navLinksBtn  ${props.login ? "hidden" : null}`}>
               <button
                 className="btn btn-secondary"
