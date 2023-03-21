@@ -1,5 +1,6 @@
 .homePg{
   height: 100%;
+  display: flex;
 }
 .baseContainer {
     max-width: 100%;

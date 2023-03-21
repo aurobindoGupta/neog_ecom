@@ -4,16 +4,26 @@
   width: 100%;
 
 }
+/* .page-content{
+  flex-wrap: wrap;
+  overflow: scroll;
+} */
 .wishlistPg {
   width: 100%;
 }
 
-.wishlist-pg {
+.wishlistPg-content {
   display: flex;
+  flex-direction: column;
   width: 100%;
   align-items: center;
   justify-content: center;
+  
+}
+.wishlistPg-products{
+  display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .card-img-container {
   background: var(--primary-color);
