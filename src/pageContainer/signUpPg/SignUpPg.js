@@ -3,20 +3,41 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../Components/navbar/NavBar";
 import { useLoginContext } from "../../context/loginProvider";
+import { debounce } from "../../utils/debounce";
 import "./signUpPg.css";
 const SignUpPg = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
   const [formError, setFormError] = useState({ email: "", password: "" });
   const [isLoggegIn, setIsLoggedIn] = useLoginContext();
   const navigate = useNavigate();
+
+  const handleUserData = (inputData) => {
+    // console.log(inputData);
+    if (inputData.firstName) {
+      setUserData({ ...userData, firstName: inputData.firstName });
+    } else if (inputData.lastName) {
+      setUserData({ ...userData, lastName: inputData.lastName });
+    }
+    else if (inputData.email) {
+      setUserData({ ...userData, email: inputData.email });
+    }
+    else if (inputData.password) {
+      setUserData({ ...userData, password: inputData.password });
+    }
+  };
+  console.log({ userData });
   return (
     <div className="signUpPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar searchBar={true} login={true} />
+        <NavBar searchBar={true} navLinks={true} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
@@ -34,15 +55,25 @@ const SignUpPg = () => {
                   <input
                     type="name"
                     id="first-name"
+                    placeholder="Jhon"
                     className="input-space full-form "
+                    onChange={debounce(
+                      (e) => handleUserData({ firstName: e.target.value }),
+                      500
+                    )}
                   />
                   <label className="input-label" htmlFor="last-name">
                     Last Name
                   </label>
                   <input
                     type="name"
+                    placeholder="Doe"
                     id="last-name"
                     className="input-space full-form "
+                    onChange={debounce(
+                      (e) => handleUserData({ lastName: e.target.value }),
+                      500
+                    )}
                   />
 
                   <label className="input-label" htmlFor="input-email">
@@ -56,9 +87,10 @@ const SignUpPg = () => {
                       formError.email ? "vibrate" : null
                     }`}
                     id="input-email"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
+                    onChange={debounce(
+                      (e) => handleUserData({ email: e.target.value }),
+                      500
+                    )}
                     required
                   />
                   <label className="input-label" htmlFor="input-pass">
@@ -73,9 +105,10 @@ const SignUpPg = () => {
                       formError.password ? "vibrate" : null
                     }`}
                     id="input-pass"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
+                    onChange={debounce(
+                      (e) => handleUserData({ password: e.target.value }),
+                      2000
+                    )}
                     required
                   />
                 </div>
