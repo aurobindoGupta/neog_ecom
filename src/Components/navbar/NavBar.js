@@ -40,7 +40,7 @@ const NavBar = (props) => {
         className={`userProfile-Dropdown ${dropdownDisplay ? null : "hidden"}`}
       >
         <button className="btn btn-link">
-          {userData ? userData.foundUser.firstName : null}
+          {userData ? userData.firstName : null}
         </button>
         <button className="btn btn-link" onClick={() => handleLogout()}>
           LogOut
