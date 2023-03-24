@@ -84,37 +84,42 @@ const LoginPg = () => {
             email: emailId,
             password: pass,
           },
-        }).then((res) => {
-          if (res.data.encodedToken) {
-            console.log(res.data);
-            setIsLoggedIn(true);
-            localStorage.setItem(
-              "userData",
-              JSON.stringify(res.data.foundUser)
-            );
-            localStorage.setItem(
-              "token",
-              JSON.stringify(res.data.encodedToken)
-            );
+        })
+          .then((res) => {
+            if (res.data.encodedToken) {
+              console.log({ res });
+              setIsLoggedIn(true);
+              localStorage.setItem(
+                "userData",
+                JSON.stringify(res.data.foundUser)
+              );
+              localStorage.setItem(
+                "token",
+                JSON.stringify(res.data.encodedToken)
+              );
 
-            navigate("/productPg");
-          } else {
-            setIsLoggedIn(false);
-          }
-        });
-      } catch (error) {
-        console.error(error);
-        toast.error("Login Error. Contact Dev", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          toastId: uuid(),
-        });
+              navigate("/productPg");
+            } else {
+              setIsLoggedIn(false);
+            }
+          })
+          .catch((error) => {
+            console.log("bad bad");
+            console.log(error.response.data.errors);
+            toast.error("LogIn Error", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              toastId: uuid(),
+            });
+          });
+      } catch (err) {
+        console.log(err);
       }
     }
   };

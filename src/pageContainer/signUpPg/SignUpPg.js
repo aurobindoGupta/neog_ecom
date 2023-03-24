@@ -6,9 +6,7 @@ import NavBar from "../../Components/navbar/NavBar";
 import { useLoginContext } from "../../context/loginProvider";
 import { debounce } from "../../utils/debounce";
 import "./signUpPg.css";
-import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { users } from "../../backend/db/users";
 const SignUpPg = () => {
   const [userData, setUserData] = useState({
     firstName: "",
@@ -131,15 +129,33 @@ const SignUpPg = () => {
           email: emailId,
           password: pass,
         },
-      }).then((res) => {
-        console.log("haiaihdasd",res.data)
-        localStorage.setItem("userData",JSON.stringify(res.data.createdUser))
-        localStorage.setItem("token",JSON.stringify(res.data.encodedToken))
-
-        navigate("/productPg")
-      });
-    } catch (error) {
-      console.log({error});
+      })
+        .then((res) => {
+          console.log("haiaihdasd", res.data);
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(res.data.createdUser)
+          );
+          localStorage.setItem("token", JSON.stringify(res.data.encodedToken));
+          navigate("/productPg");
+        })
+        .catch((error) => {
+          console.log("bad bad");
+          console.log(error.response.data.errors);
+          toast.error("SignIn Error", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            toastId: uuid(),
+          });
+        });
+    } catch (err) {
+      console.log( err );
     }
   };
   return (
