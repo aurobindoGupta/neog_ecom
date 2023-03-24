@@ -34,15 +34,19 @@ const NavBar = (props) => {
     localStorage.clear();
     setIsLoggedIn(false);
   };
-  const UserProfileDropdown = () => {
+  const UserProfileDropdown = (e) => {
     return (
       <div
         className={`userProfile-Dropdown ${dropdownDisplay ? null : "hidden"}`}
+        onMouseLeave={() => setDropdownDisplay(false)}
       >
-        <button className="btn btn-link">
+        <button className="btn btn-link dropdown-btn">
           {userData ? userData.firstName : null}
         </button>
-        <button className="btn btn-link" onClick={() => handleLogout()}>
+        <button
+          className="btn btn-link dropdown-btn"
+          onClick={() => handleLogout()}
+        >
           LogOut
         </button>
       </div>
@@ -70,7 +74,7 @@ const NavBar = (props) => {
           </form>
         </div>
         <div>
-          <ul className={`navLinks ${props.navLinks?'hidden':null}`}>
+          <ul className={`navLinks ${props.navLinks ? "hidden" : null}`}>
             <li className={`navLinksBtn  ${props.login ? "hidden" : null}`}>
               <button
                 className="btn btn-secondary"

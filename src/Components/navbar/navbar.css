@@ -58,4 +58,16 @@
   top: 3rem;
   left: -3rem;
   width: max-content;
+  min-width: 4rem;
+  z-index: 2;
+ border: 1px solid black;
+ border-radius: 0.2rem;
+}
+.dropdown-btn{
+ border: 1px solid black;
+ border-radius: 0.2rem;
+}
+.dropdown-btn:hover{
+  background: var(--themeBright-hover-color);
+  color: var(--secondary-color);
 }
