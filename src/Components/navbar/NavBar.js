@@ -52,7 +52,6 @@ const NavBar = (props) => {
       </div>
     );
   };
-  console.log(searchBarValue);
   return (
     <div className="navBarContainer">
       <nav className="navBar">

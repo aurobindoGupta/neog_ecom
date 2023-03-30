@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { toast } from "react-toastify";
@@ -8,36 +8,26 @@ import { debounce } from "../../utils/debounce";
 import "./signUpPg.css";
 import axios from "axios";
 const SignUpPg = () => {
-  const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
+  const [btnDisabled, setBtnDisabled] = useState(false);
+  const userFirstName = useRef();
+  const userLastName = useRef();
+  const userEmail = useRef();
+  const userPassword = useRef();
+
   const [formError, setFormError] = useState(true);
   const [isLoggegIn, setIsLoggedIn] = useLoginContext();
   const navigate = useNavigate();
 
-  const handleUserData = (inputData) => {
-    // console.log(inputData);
-    if (inputData.firstName) {
-      setUserData({ ...userData, firstName: inputData.firstName });
-    } else if (inputData.lastName) {
-      setUserData({ ...userData, lastName: inputData.lastName });
-    } else if (inputData.email) {
-      setUserData({ ...userData, email: inputData.email });
-    } else if (inputData.password) {
-      setUserData({ ...userData, password: inputData.password });
-    }
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      !userData.email ||
-      !userData.password ||
-      !userData.firstName ||
-      !userData.lastName
-    ) {
+    console.log(userFirstName.current.value);
+    console.log(userLastName.current.value);
+    const email = userEmail.current.value;
+    const password = userPassword.current.value;
+    const firstName = userFirstName.current.value;
+    const lastName = userLastName.current.value;
+
+    if (!email || !password || !firstName || !lastName) {
       toast.warn("Input Feilds can not be empty", {
         position: "top-right",
         autoClose: 2000,
@@ -50,7 +40,7 @@ const SignUpPg = () => {
         toastId: uuid(),
       });
     } else {
-      if (!userData.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      if (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
         toast.error("Invalid Email", {
           position: "top-center",
           autoClose: 2000,
@@ -63,7 +53,7 @@ const SignUpPg = () => {
           toastId: uuid(),
         });
       }
-      if (userData.password.length < 6) {
+      if (password.length < 6) {
         toast.error("Password length should be atleast 6 characters", {
           position: "top-center",
           autoClose: 2000,
@@ -76,7 +66,7 @@ const SignUpPg = () => {
           toastId: uuid(),
         });
       }
-      if (!userData.firstName.match(/^[a-zA-Z ]{2,30}$/)) {
+      if (!firstName.match(/^[a-zA-Z ]{2,30}$/)) {
         toast.error("Invalid First Name", {
           position: "top-center",
           autoClose: 2000,
@@ -89,7 +79,7 @@ const SignUpPg = () => {
           toastId: uuid(),
         });
       }
-      if (!userData.lastName.match(/^[a-zA-Z]{2,30}$/)) {
+      if (!lastName.match(/^[a-zA-Z]{2,30}$/)) {
         toast.error("Invalid Last Name", {
           position: "top-center",
           autoClose: 2000,
@@ -103,17 +93,12 @@ const SignUpPg = () => {
         });
       }
       if (
-        userData.firstName.match(/^[a-zA-Z ]{2,30}$/) &&
-        userData.lastName.match(/^[a-zA-Z]{2,30}$/) &&
-        userData.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
-        userData.password.length >= 6
+        firstName.match(/^[a-zA-Z ]{2,30}$/) &&
+        lastName.match(/^[a-zA-Z]{2,30}$/) &&
+        email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) &&
+        password.length >= 6
       ) {
-        handleSignupApiCall(
-          userData.firstName,
-          userData.lastName,
-          userData.email,
-          userData.password
-        );
+        handleSignupApiCall(firstName, lastName, email, password);
       }
     }
   };
@@ -137,6 +122,7 @@ const SignUpPg = () => {
             JSON.stringify(res.data.createdUser)
           );
           localStorage.setItem("token", JSON.stringify(res.data.encodedToken));
+          setIsLoggedIn(true);
           navigate("/productPg");
         })
         .catch((error) => {
@@ -155,7 +141,7 @@ const SignUpPg = () => {
           });
         });
     } catch (err) {
-      console.log( err );
+      console.log(err);
     }
   };
   return (
@@ -181,12 +167,11 @@ const SignUpPg = () => {
                   <input
                     type="text"
                     id="first-name"
+                    name="firstName"
+                    autoComplete="nope"
+                    ref={userFirstName}
                     placeholder="Jhon"
                     className="input-space full-form "
-                    onChange={debounce(
-                      (e) => handleUserData({ firstName: e.target.value }),
-                      300
-                    )}
                   />
                   <label className="input-label" htmlFor="last-name">
                     Last Name
@@ -194,12 +179,11 @@ const SignUpPg = () => {
                   <input
                     type="text"
                     placeholder="Doe"
+                    autoComplete="nope"
+                    name="lastName"
+                    ref={userLastName}
                     id="last-name"
                     className="input-space full-form "
-                    onChange={debounce(
-                      (e) => handleUserData({ lastName: e.target.value }),
-                      300
-                    )}
                   />
 
                   <label className="input-label" htmlFor="input-email">
@@ -208,15 +192,13 @@ const SignUpPg = () => {
                   {/* <span className="error">{formError.email}</span> */}
                   <input
                     type="email"
+                    name="email"
+                    ref={userEmail}
                     placeholder="jhondoe@gmail.com"
                     className={`input-space full-form input-email ${
                       formError.email ? "vibrate" : null
                     }`}
                     id="input-email"
-                    onChange={debounce(
-                      (e) => handleUserData({ email: e.target.value }),
-                      300
-                    )}
                     required
                   />
                   <label className="input-label" htmlFor="input-pass">
@@ -225,25 +207,27 @@ const SignUpPg = () => {
                   {/* <span className="error">{formError.password}</span> */}
                   <input
                     type="password"
+                    name="password"
                     placeholder="1234567890"
+                    ref={userPassword}
                     maxLength={15}
                     className={`input-space full-form input-pass ${
                       formError.password ? "vibrate" : null
                     }`}
                     id="input-pass"
-                    onChange={debounce(
-                      (e) => handleUserData({ password: e.target.value }),
-                      300
-                    )}
                     required
                   />
                 </div>
               </div>
               <div className="modal-btn">
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary signup-btn"
                   type="submit"
-                  onClick={debounce((e) => handleSubmit(e), 500)}
+                  disabled={btnDisabled}
+                  onClick={(e) => {
+                    debounce(handleSubmit(e), 500);
+                    setBtnDisabled(true);
+                  }}
                 >
                   Sign Up
                 </button>

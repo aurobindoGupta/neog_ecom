@@ -175,7 +175,7 @@ const ProductPg = () => {
     } else {
       setFilteredProductData([...priceFilterMod(productData, sliderCost)]);
     }
-    //!here
+        //!here
     if (ratingFilter !== "") {
     }
   };
@@ -398,12 +398,6 @@ const ProductPg = () => {
             {/* <!-- main Content --> */}
             <div className="main-content">
               <div className="main-content-header">
-                <p>
-                  Showing All Products{" "}
-                  {sliderFilter !== 0 ? `[Below: Rs.${sliderFilter}]` : ``}
-                  {ratingFilter !== "" ? `[Rating: ${ratingFilter}]` : ``}
-                  {sortByFilter !== "" ? `[Sorted By: ${sortByFilter}]` : ``}
-                </p>
               </div>
               <div className="product-list">
                 {filteredProductData.length > 0
