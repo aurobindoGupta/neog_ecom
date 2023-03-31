@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import NavBar from "../../Components/navbar/NavBar";
 import { useLoginContext } from "../../context/loginProvider";
 import "./loginPg.css";
@@ -69,32 +71,61 @@ const LoginPg = () => {
   };
   const handleLoginApiCall = async (emailId, pass) => {
     console.log("ymomomom", emailId, pass);
-   try{
-    axios({
-      method: "POST",
-      url: "api/auth/login",
-      data: {
-        email: emailId,
-        password: pass,
-      },
-    }).then((res) => {
-      if (res.data.encodedToken) {
-        console.log(res.data);
-        setIsLoggedIn(true);
-        localStorage.setItem("userData",JSON.stringify(res.data))
-        navigate("/productPg");
+    if (localStorage.getItem("userData")) {
+      console.log(JSON.parse(localStorage.getItem("userData")));
+      setIsLoggedIn(true);
+      navigate("/productPg");
+    } else {
+      try {
+        axios({
+          method: "POST",
+          url: "api/auth/login",
+          data: {
+            email: emailId,
+            password: pass,
+          },
+        })
+          .then((res) => {
+            if (res.data.encodedToken) {
+              console.log({ res });
+              setIsLoggedIn(true);
+              localStorage.setItem(
+                "userData",
+                JSON.stringify(res.data.foundUser)
+              );
+              localStorage.setItem(
+                "token",
+                JSON.stringify(res.data.encodedToken)
+              );
+
+              navigate("/productPg");
+            } else {
+              setIsLoggedIn(false);
+            }
+          })
+          .catch((error) => {
+            console.log("bad bad");
+            console.log(error.response.data.errors);
+            toast.error("LogIn Error", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              toastId: uuid(),
+            });
+          });
+      } catch (err) {
+        console.log(err);
       }
-      else{
-        setIsLoggedIn(false);
-      }
-    }); 
-   }catch(error){
-    console.error(error)
-   }
+    }
   };
-  const handleTestLogin=()=>{
-   handleLoginApiCall('adarshbalika@gmail.com','adarshbalika');
-  }
+  const handleTestLogin = () => {
+    handleLoginApiCall("adarshbalika@gmail.com", "adarshbalika");
+  };
   return (
     <div className="loginPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
@@ -148,7 +179,12 @@ const LoginPg = () => {
                   />
                 </div>
                 <div className="form-utils">
-                  <button className="btn btn-link loginBtn" onClick={()=>handleTestLogin()}>Test Login.</button>
+                  <button
+                    className="btn btn-link loginBtn"
+                    onClick={() => handleTestLogin()}
+                  >
+                    Test Login.
+                  </button>
 
                   <button className="btn btn-link loginBtn">
                     Forgot Password?

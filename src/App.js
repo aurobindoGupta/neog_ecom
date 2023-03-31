@@ -10,11 +10,14 @@ import Mockman from "mockman-js";
 import SignUpPg from "./pageContainer/signUpPg/SignUpPg";
 import Protected from "./utils/Protected";
 import { useLoginContext } from "./context/loginProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [isLoggedIn] = useLoginContext();
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route exact path="/" element={<HomePg />} />
         <Route path="/productPg" element={<ProductPg />} />

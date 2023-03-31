@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const LoginContext = createContext();
 const LoginProvider = ({ children }) => {
   const [isLoggegIn, setIsLoggedIn] = useState();
-
+  
   useEffect(() => {
     let userData = JSON.parse(localStorage.getItem("userData"));
     userData ? setIsLoggedIn(true) : setIsLoggedIn(false);
