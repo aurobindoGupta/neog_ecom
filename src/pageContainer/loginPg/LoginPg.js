@@ -1,19 +1,24 @@
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import NavBar from "../../Components/navbar/NavBar";
 import { useLoginContext } from "../../context/loginProvider";
 import "./loginPg.css";
+import ForgotPassEmail from "./forgotPass/ForgotPassEmail";
+
 const LoginPg = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const userEmailRef = useRef();
+  const userPasswordRef = useRef();
+  const [showModal, setShowModal] = useState(false);
   const [formError, setFormError] = useState({ email: "", password: "" });
   const [isLoggegIn, setIsLoggedIn] = useLoginContext();
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+    const email = userEmailRef.current.value;
+    const password = userPasswordRef.current.value;
     if (!email && !password) {
       setFormError({
         email: "input Feild Can not be empty",
@@ -126,10 +131,20 @@ const LoginPg = () => {
   const handleTestLogin = () => {
     handleLoginApiCall("adarshbalika@gmail.com", "adarshbalika");
   };
+
   return (
-    <div className="loginPg">
+    <div
+      className="loginPg"
+      onClick={(e) =>
+        e.target.className.includes("forgotPassModal") ||
+        e.target.className.includes("loginBtn")
+          ? ''
+          : setShowModal(false)
+      }
+    >
       {/* <!-- ................BASE CONTAINER............. --> */}
-      <div className="baseContainer">
+      {showModal && <ForgotPassEmail setShowModal={setShowModal} />}
+      <div className={`baseContainer ${showModal ? "isBlur" : ""}`}>
         {/* <!-- ................NAV BAR............. --> */}
 
         <NavBar searchBar={true} navLinks={true} />
@@ -150,14 +165,12 @@ const LoginPg = () => {
                   <span className="error">{formError.email}</span>
                   <input
                     type="email"
+                    ref={userEmailRef}
                     placeholder="jhondoe@gmail.com"
                     className={`input-space full-form input-email ${
                       formError.email ? "vibrate" : null
                     }`}
                     id="input-email"
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                    }}
                     required
                   />
                   <label className="input-label" htmlFor="input-pass">
@@ -166,15 +179,13 @@ const LoginPg = () => {
                   <span className="error">{formError.password}</span>
                   <input
                     type="password"
+                    ref={userPasswordRef}
                     placeholder="1234567890"
                     maxLength={15}
                     className={`input-space full-form input-pass ${
                       formError.password ? "vibrate" : null
                     }`}
                     id="input-pass"
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
                     required
                   />
                 </div>
@@ -186,7 +197,10 @@ const LoginPg = () => {
                     Test Login.
                   </button>
 
-                  <button className="btn btn-link loginBtn">
+                  <button
+                    className="btn btn-link loginBtn"
+                    onClick={() => setShowModal(!showModal)}
+                  >
                     Forgot Password?
                   </button>
                 </div>
