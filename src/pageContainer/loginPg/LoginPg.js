@@ -75,12 +75,14 @@ const LoginPg = () => {
     console.log({ email, password });
   };
   const handleLoginApiCall = async (emailId, pass) => {
-    console.log("ymomomom", emailId, pass);
-    if (localStorage.getItem("userData")) {
-      console.log(JSON.parse(localStorage.getItem("userData")));
-      setIsLoggedIn(true);
-      navigate("/productPg");
-    } else {
+    const localStorageData = JSON.parse(localStorage.getItem("userData"));
+    if(localStorage.getItem("userData")){
+      if (localStorageData.email === emailId && localStorageData.password === pass) {
+        setIsLoggedIn(true);
+        navigate("/productPg");
+      }
+    }
+    else {
       try {
         axios({
           method: "POST",
@@ -91,8 +93,8 @@ const LoginPg = () => {
           },
         })
           .then((res) => {
+            console.log( res );
             if (res.data.encodedToken) {
-              console.log({ res });
               setIsLoggedIn(true);
               localStorage.setItem(
                 "userData",
