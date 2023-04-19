@@ -81,6 +81,7 @@ const LoginPg = () => {
         setIsLoggedIn(true);
         navigate("/productPg");
       }
+//*clear localStorage if data not matching
       else{
         localStorage.clear()
       }
