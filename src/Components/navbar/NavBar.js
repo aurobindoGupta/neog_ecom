@@ -31,7 +31,7 @@ const NavBar = (props) => {
     }, 2000);
   };
   const handleLogout = () => {
-    localStorage.clear();
+    //! localStorage.clear(); to enable forgot pass to access data from local storage.
     setIsLoggedIn(false);
   };
   const UserProfileDropdown = (e) => {
