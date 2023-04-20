@@ -5,13 +5,14 @@ import NavBar from "../../Components/navbar/NavBar";
 import image_1 from "../../utils/images/image_1.webp";
 import { useCartContext } from "../../context/cartProvider";
 import { useState } from "react";
+import { useLoginContext } from "../../context/loginProvider";
 
 const CartPg = () => {
   const[distcountCode, setDiscountCode]= useState('');
   const[distcountValue, setDiscountValue]= useState(0);
   const[deliveryCharge, setDeliveryCharge]= useState(500);
   const [cartValue] = useCartContext();
-
+ const [isLoggegIn] = useLoginContext();
   const defaultData = {
     id: uuid(),
     productData: {
@@ -22,7 +23,6 @@ const CartPg = () => {
     },
     qty: 0,
   };
-  console.log(cartValue);
   const handleDiscount=(e)=>{
     e.preventDefault();
     let code= distcountCode;
@@ -68,7 +68,7 @@ const CartPg = () => {
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar searchBar={true} login={true}/>
+        <NavBar searchBar={true} login={isLoggegIn? true:false} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
@@ -88,7 +88,7 @@ const CartPg = () => {
             </div>
             <div className="bill-content">
             <div className="discount-row">
-              <input className="discount-input" type='text' onChange={(e)=> setDiscountCode(e.target.value)}/>
+              <input className="discount-input" type='text' placeholder="=>dis10,dis25" onChange={(e)=> setDiscountCode(e.target.value)}/>
               <button className="btn btn-secondary discount-btn" type='submit' onClick={(e)=>handleDiscount(e)}>Go</button>
             </div>
               <div className="bill-header fw-semiBold">

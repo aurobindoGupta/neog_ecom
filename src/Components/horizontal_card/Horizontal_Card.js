@@ -11,7 +11,6 @@ const Horizontal_card = ({ data }) => {
 
   const { productData, qty } = data;
 
-  console.log(productData);
   const handleQuantity = (operator) => {
     switch (operator) {
       case "add":

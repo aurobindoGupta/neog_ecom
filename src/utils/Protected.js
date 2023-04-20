@@ -1,9 +1,13 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useLoginContext } from "../context/loginProvider";
 
-const Protected = (props) => {
-  if (props.isLoggedIn) {
-    return props.children;
-  }
-  else return <Navigate to='/loginPg' replace/>;
+
+const Protected = () => {
+  const [isLoggedIn, setIsLoggedIn] = useLoginContext();
+ 
+  if (isLoggedIn) {
+    return <Outlet/>
+  } else return <Navigate to="/loginPg" replace />;
+  
 };
 export default Protected;

@@ -12,24 +12,23 @@ import Protected from "./utils/Protected";
 import { useLoginContext } from "./context/loginProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
 
 function App() {
-  const [isLoggedIn] = useLoginContext();
+  const [isLoggedIn, setIsLoggedIn] = useLoginContext();
+  console.log(isLoggedIn);
+
   return (
     <div className="App">
       <ToastContainer />
       <Routes>
         <Route exact path="/" element={<HomePg />} />
         <Route path="/productPg" element={<ProductPg />} />
-        <Route
-          path="/cartPg"
-          element={
-            <Protected isLoggedIn={isLoggedIn}>
-              <CartPg />
-            </Protected>
-          }
-        />
-        <Route path="/wishlistPg" element={<WishListPg />} />
+        <Route element={<Protected />}>
+          <Route path="/cartPg" element={<CartPg />} />
+          <Route path="/wishlistPg" element={<WishListPg />} />
+        </Route>
+
         <Route path="/loginPg" element={<LoginPg />} />
         <Route path="/signUpPg" element={<SignUpPg />} />
         <Route path="/mock" element={<Mockman />} />
