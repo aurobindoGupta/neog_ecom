@@ -14,6 +14,7 @@ const NavBar = (props) => {
   const [searchBarInput, setSearchBarInput] = useNavSearchContext();
   const [isLoggedIn, setIsLoggedIn] = useLoginContext();
 
+  
   let navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {

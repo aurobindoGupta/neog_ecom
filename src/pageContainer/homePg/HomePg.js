@@ -4,14 +4,17 @@ import image_1 from "../../utils/images/image_1.webp";
 import NavBar from "../../Components/navbar/NavBar";
 import {default as BottomCard} from "../../Components/bottom_card/Bottom_Card";
 import { default as TopCard } from "../../Components/top_card/Top_Card";
+import { useLoginContext } from "../../context/loginProvider";
 
 const HomePg = () => {
+  const [isLoggedIn]= useLoginContext();
+  console.log(isLoggedIn);
   return (
     <div className="homePg">
       {/* <!-- ................BASE CONTAINER............. --> */}
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
-        <NavBar />
+        <NavBar login={isLoggedIn? true:false} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
