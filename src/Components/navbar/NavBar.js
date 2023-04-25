@@ -18,7 +18,6 @@ const NavBar = (props) => {
   let navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
-    console.log("yoyoyo", searchBarInput);
     setSearchBarValue(searchBarInput);
   }, [searchBarInput]);
 

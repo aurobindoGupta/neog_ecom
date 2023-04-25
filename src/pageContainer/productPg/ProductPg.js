@@ -11,6 +11,7 @@ import categoryFilterMod from "../../Components/Productfilters/categoryFilterMod
 import { useNavSearchContext } from "../../context/navSearchProvider";
 import searchBarFilterMod from "../../Components/Productfilters/searchBarFilterMod";
 import { useLoginContext } from "../../context/loginProvider";
+import { useLocation } from "react-router-dom";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -22,7 +23,8 @@ const ProductPg = () => {
   const [categoryData] = useCategoryContext();
   const [searchBarInput, setSearchBarInput] = useNavSearchContext();
   const [isLoggegIn] = useLoginContext();
-  console.log({isLoggegIn});
+  let location = useLocation();
+
   useEffect(() => {
     const handleCategoryData = () => {
       const categoryFilterDummy = [];
@@ -42,6 +44,7 @@ const ProductPg = () => {
     };
     handleCategoryData();
   }, [categoryData]);
+
   useEffect(() => {
     let timeout;
     clearTimeout(timeout);
@@ -62,11 +65,14 @@ const ProductPg = () => {
     let timeout;
     let flag = checkFilter.filter((item) => item.checked);
     clearTimeout(timeout);
-
+    console.log({ flag });
     if (flag.length !== 0) {
       timeout = setTimeout(() => {
         handleCategoryFilteredData();
       }, 1000);
+    }
+    else{
+      setFilteredProductData(productData)
     }
   }, [checkFilter]);
 
@@ -85,6 +91,13 @@ const ProductPg = () => {
       handleSortByCostFilterData(sortByFilter);
     }, 1000);
   }, [sortByFilter]);
+
+  // useEffect(()=>{
+  //   if(location.state.categoryData){
+
+  //     handleCheckFilter(location.state)
+  //   }
+  // },[])
 
   //*handle search bar
   const handleSearchbBar = (searchInput) => {
@@ -143,7 +156,6 @@ const ProductPg = () => {
       setFilteredProductData([...categoryFilterMod(checkFilter, productData)]);
     }
   };
-  console.log("filteredDummyData", filteredProductData);
 
   //* handling rating filter
   const handleRatingFilterData = (rating) => {
@@ -175,7 +187,7 @@ const ProductPg = () => {
     } else {
       setFilteredProductData([...priceFilterMod(productData, sliderCost)]);
     }
-        //!here
+    //!here
     if (ratingFilter !== "") {
     }
   };
@@ -194,19 +206,14 @@ const ProductPg = () => {
     setSortByFilter("");
   };
 
-  console.log(
-    { sliderFilter },
-    { ratingFilter },
-    { checkFilter },
-    { sortByFilter }
-  );
+
   return (
     <div className="productPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar login={isLoggegIn? true:false} />
+        <NavBar login={isLoggegIn ? true : false} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
@@ -252,6 +259,7 @@ const ProductPg = () => {
                   <p className="sideNav-title fs-M fw-bold">Category</p>
                   <div className="checkbox">
                     {checkFilter.map((item, key) => {
+                      //*check if obj has prperty checked.
                       if (Object.hasOwn(item, "checked")) {
                         return (
                           <div
@@ -397,8 +405,7 @@ const ProductPg = () => {
             </div>
             {/* <!-- main Content --> */}
             <div className="main-content">
-              <div className="main-content-header">
-              </div>
+              <div className="main-content-header"></div>
               <div className="product-list">
                 {filteredProductData.length > 0
                   ? Object.values(filteredProductData).map((item, key) => {
