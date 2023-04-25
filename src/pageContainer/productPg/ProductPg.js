@@ -12,6 +12,7 @@ import { useNavSearchContext } from "../../context/navSearchProvider";
 import searchBarFilterMod from "../../Components/Productfilters/searchBarFilterMod";
 import { useLoginContext } from "../../context/loginProvider";
 import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -23,27 +24,21 @@ const ProductPg = () => {
   const [categoryData] = useCategoryContext();
   const [searchBarInput, setSearchBarInput] = useNavSearchContext();
   const [isLoggegIn] = useLoginContext();
+  const locationFilter = useRef(true);
   let location = useLocation();
 
   useEffect(() => {
-    const handleCategoryData = () => {
-      const categoryFilterDummy = [];
-      for (let item = 0; item < categoryData.length; item++) {
-        if (
-          categoryData[item].categoryName !==
-          (categoryData[item + 1] ? categoryData[item + 1].categoryName : null)
-        ) {
-          categoryData[item]["checked"] = false;
-          categoryFilterDummy.push({
-            categoryName: categoryData[item].categoryName,
-            checked: categoryData[item].checked,
-          });
-        }
-      }
-      setCheckFilter(categoryFilterDummy);
-    };
-    handleCategoryData();
+    setCheckFilter(categoryData);
   }, [categoryData]);
+
+  useEffect(() => {
+    if (checkFilter.length > 0) {
+      if (location.state.categoryName && locationFilter.current) {
+        handleCheckFilter(location.state);
+        locationFilter.current = false;
+      }
+    }
+  }, [checkFilter]);
 
   useEffect(() => {
     let timeout;
@@ -70,9 +65,8 @@ const ProductPg = () => {
       timeout = setTimeout(() => {
         handleCategoryFilteredData();
       }, 1000);
-    }
-    else{
-      setFilteredProductData(productData)
+    } else {
+      setFilteredProductData(productData);
     }
   }, [checkFilter]);
 
@@ -122,16 +116,18 @@ const ProductPg = () => {
 
   //* handle checked/unchecked
   const handleCheckFilter = (checkFilterDataItem) => {
-    setCheckFilter(
-      [...checkFilter].map((temp) => {
-        if (temp.categoryName === checkFilterDataItem.categoryName) {
-          return {
-            ...temp,
-            checked: !temp.checked,
-          };
-        } else return temp;
-      })
-    );
+    if (checkFilter.length > 0) {
+      setCheckFilter(
+        [...checkFilter].map((temp) => {
+          if (temp.categoryName === checkFilterDataItem.categoryName) {
+            return {
+              ...temp,
+              checked: !temp.checked,
+            };
+          } else return temp;
+        })
+      );
+    }
   };
 
   //* handling category filter
@@ -205,7 +201,6 @@ const ProductPg = () => {
     setRatingFilter("");
     setSortByFilter("");
   };
-
 
   return (
     <div className="productPg">

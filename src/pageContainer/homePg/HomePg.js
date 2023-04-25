@@ -29,7 +29,6 @@ const HomePg = () => {
     }
     setTopCardData(categoryFilterDummy);
   }, [categoryData]);
-  console.log(topCardData);
 
   return (
     <div className="homePg">

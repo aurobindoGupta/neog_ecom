@@ -11,7 +11,6 @@ const WishlistProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("userData")).wishlist
       : []
   );
-  console.log(wishlistValue);
 
 
   useEffect(() => {
