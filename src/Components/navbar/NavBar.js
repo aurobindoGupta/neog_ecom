@@ -9,16 +9,14 @@ import "./navbar.css";
 const NavBar = (props) => {
   const [searchBarValue, setSearchBarValue] = useState("");
   const [dropdownDisplay, setDropdownDisplay] = useState(false);
-  const [cartValue] = useCartContext();
-  const [wishlistValue] = useWishlistContext();
+  const [cartValue, setCartValue] = useCartContext();
+  const [wishlistValue, setWishlistValue] = useWishlistContext();
   const [searchBarInput, setSearchBarInput] = useNavSearchContext();
   const [isLoggedIn, setIsLoggedIn] = useLoginContext();
 
-  
   let navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
-    console.log("yoyoyo", searchBarInput);
     setSearchBarValue(searchBarInput);
   }, [searchBarInput]);
 
@@ -31,10 +29,14 @@ const NavBar = (props) => {
       setSearchBarInput(e.target.value);
     }, 2000);
   };
+
   const handleLogout = () => {
     localStorage.clear();
     setIsLoggedIn(false);
+    setCartValue([]);
+    setWishlistValue([]);
   };
+
   const UserProfileDropdown = (e) => {
     return (
       <div

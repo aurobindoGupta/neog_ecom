@@ -29,26 +29,26 @@ export const categories = [
   },
   {
     _id: uuid(),
-    categoryName: "smartphones",
+    categoryName: "Smartphones",
   },
   {
     _id: uuid(),
-    categoryName: "laptops",
+    categoryName: "Laptops",
   },
   {
     _id: uuid(),
-    categoryName: "fragrances",
+    categoryName: "Fragrances",
   },
   {
     _id: uuid(),
-    categoryName: "skincare",
+    categoryName: "Skincare",
   },
   {
     _id: uuid(),
-    categoryName: "groceries",
+    categoryName: "Groceries",
   },
   {
     _id: uuid(),
-    categoryName: "home-decoration",
+    categoryName: "Home-decoration",
   },
 ];

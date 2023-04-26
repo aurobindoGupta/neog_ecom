@@ -1,7 +1,7 @@
 .preview-card.style1 {
     padding: 1rem;
     max-width: 17.875rem;
-   
+    cursor: pointer;
   }
   .style1-group {
     position: relative;

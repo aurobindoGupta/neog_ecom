@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
-import "./productPg.css";
-import NavBar from "../../Components/navbar/NavBar";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
 import { useProductContext } from "../../context/productProvider";
 import { useCategoryContext } from "../../context/categoryProvider";
+import { useNavSearchContext } from "../../context/navSearchProvider";
+import { useLoginContext } from "../../context/loginProvider";
+import NavBar from "../../Components/navbar/NavBar";
 import priceFilterMod from "../../Components/Productfilters/priceFilterMod";
 import ratingFilterMod from "../../Components/Productfilters/ratingFilterMod";
 import sortByFilterMod from "../../Components/Productfilters/sortByFilterMod";
 import categoryFilterMod from "../../Components/Productfilters/categoryFilterMod";
-import { useNavSearchContext } from "../../context/navSearchProvider";
 import searchBarFilterMod from "../../Components/Productfilters/searchBarFilterMod";
-import { useLoginContext } from "../../context/loginProvider";
+import "./productPg.css";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -22,26 +24,22 @@ const ProductPg = () => {
   const [categoryData] = useCategoryContext();
   const [searchBarInput, setSearchBarInput] = useNavSearchContext();
   const [isLoggegIn] = useLoginContext();
-  console.log({isLoggegIn});
+  const locationFilter = useRef(true);
+  let location = useLocation();
+
   useEffect(() => {
-    const handleCategoryData = () => {
-      const categoryFilterDummy = [];
-      for (let item = 0; item < categoryData.length; item++) {
-        if (
-          categoryData[item].categoryName !==
-          (categoryData[item + 1] ? categoryData[item + 1].categoryName : null)
-        ) {
-          categoryData[item]["checked"] = false;
-          categoryFilterDummy.push({
-            categoryName: categoryData[item].categoryName,
-            checked: categoryData[item].checked,
-          });
-        }
-      }
-      setCheckFilter(categoryFilterDummy);
-    };
-    handleCategoryData();
+    setCheckFilter(categoryData);
   }, [categoryData]);
+
+  useEffect(() => {
+    if (checkFilter.length > 0) {
+      if (location.state && locationFilter.current) {
+        handleCheckFilter(location.state);
+        locationFilter.current = false;
+      }
+    }
+  }, [checkFilter]);
+
   useEffect(() => {
     let timeout;
     clearTimeout(timeout);
@@ -62,11 +60,12 @@ const ProductPg = () => {
     let timeout;
     let flag = checkFilter.filter((item) => item.checked);
     clearTimeout(timeout);
-
     if (flag.length !== 0) {
       timeout = setTimeout(() => {
         handleCategoryFilteredData();
       }, 1000);
+    } else {
+      setFilteredProductData(productData);
     }
   }, [checkFilter]);
 
@@ -86,9 +85,15 @@ const ProductPg = () => {
     }, 1000);
   }, [sortByFilter]);
 
+  // useEffect(()=>{
+  //   if(location.state.categoryData){
+
+  //     handleCheckFilter(location.state)
+  //   }
+  // },[])
+
   //*handle search bar
   const handleSearchbBar = (searchInput) => {
-    console.log("searchInput", searchInput);
     let searchbarDummy = [];
     if (
       searchInput !== undefined &&
@@ -98,7 +103,6 @@ const ProductPg = () => {
       searchbarDummy = searchBarFilterMod(productData, searchInput);
       handleClearFilter();
     }
-    console.log(typeof searchbarDummy);
     if (searchbarDummy === -1 && searchInput !== "") {
       setSearchBarInput("");
       handleClearFilter();
@@ -109,16 +113,18 @@ const ProductPg = () => {
 
   //* handle checked/unchecked
   const handleCheckFilter = (checkFilterDataItem) => {
-    setCheckFilter(
-      [...checkFilter].map((temp) => {
-        if (temp.categoryName === checkFilterDataItem.categoryName) {
-          return {
-            ...temp,
-            checked: !temp.checked,
-          };
-        } else return temp;
-      })
-    );
+    if (checkFilter.length > 0) {
+      setCheckFilter(
+        [...checkFilter].map((temp,key) => {
+          if (temp.categoryName === checkFilterDataItem.categoryName) {
+            return {
+              ...temp,
+              checked: !temp.checked,
+            };
+          } else return temp;
+        })
+      );
+    }
   };
 
   //* handling category filter
@@ -135,7 +141,7 @@ const ProductPg = () => {
       filteredProductDataDummy = sortByFilterMod(productData, sortByFilter);
       filteredProductDataDummy !== -1
         ? setFilteredProductData([...filteredProductDataDummy])
-        : console.log("sortby error");
+        : console.error("sortby error");
     } else if (sliderFilter !== 0) {
       filteredProductDataDummy = priceFilterMod(productData, sliderFilter);
       setFilteredProductData([...filteredProductDataDummy]);
@@ -143,7 +149,6 @@ const ProductPg = () => {
       setFilteredProductData([...categoryFilterMod(checkFilter, productData)]);
     }
   };
-  console.log("filteredDummyData", filteredProductData);
 
   //* handling rating filter
   const handleRatingFilterData = (rating) => {
@@ -175,14 +180,14 @@ const ProductPg = () => {
     } else {
       setFilteredProductData([...priceFilterMod(productData, sliderCost)]);
     }
-        //!here
+    //!here
     if (ratingFilter !== "") {
     }
   };
   //* handling  filter clear
   const handleClearFilter = () => {
     setCheckFilter(
-      [...checkFilter].map((temp) => {
+      [...checkFilter].map((temp,key) => {
         return {
           ...temp,
           checked: false,
@@ -194,19 +199,13 @@ const ProductPg = () => {
     setSortByFilter("");
   };
 
-  console.log(
-    { sliderFilter },
-    { ratingFilter },
-    { checkFilter },
-    { sortByFilter }
-  );
   return (
     <div className="productPg">
       {/* <!-- ................BASE CONTAINER............. --> */}
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
 
-        <NavBar login={isLoggegIn? true:false} />
+        <NavBar login={isLoggegIn ? true : false} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
@@ -252,6 +251,7 @@ const ProductPg = () => {
                   <p className="sideNav-title fs-M fw-bold">Category</p>
                   <div className="checkbox">
                     {checkFilter.map((item, key) => {
+                      //*check if obj has prperty checked.
                       if (Object.hasOwn(item, "checked")) {
                         return (
                           <div
@@ -397,16 +397,14 @@ const ProductPg = () => {
             </div>
             {/* <!-- main Content --> */}
             <div className="main-content">
-              <div className="main-content-header">
-              </div>
+              <div className="main-content-header"></div>
               <div className="product-list">
                 {filteredProductData.length > 0
                   ? Object.values(filteredProductData).map((item, key) => {
-                      return <ProductCard indiData={item} key={key} />;
+                      return <ProductCard indiData={item} id={key} />;
                     })
                   : Object.values(productData).map((item, key) => {
-                      //console.log("HELLO", filteredProductData);
-                      return <ProductCard indiData={item} key={key} />;
+                      return <ProductCard indiData={item} id={key} />;
                     })}
               </div>
             </div>

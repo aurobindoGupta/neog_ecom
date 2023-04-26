@@ -2,29 +2,62 @@ import "./homePg.css";
 import homepg_centre from "../../utils/images/homepg_centre.webp";
 import image_1 from "../../utils/images/image_1.webp";
 import NavBar from "../../Components/navbar/NavBar";
-import {default as BottomCard} from "../../Components/bottom_card/Bottom_Card";
+import { default as BottomCard } from "../../Components/bottom_card/Bottom_Card";
 import { default as TopCard } from "../../Components/top_card/Top_Card";
 import { useLoginContext } from "../../context/loginProvider";
+import { useCategoryContext } from "../../context/categoryProvider";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const HomePg = () => {
-  const [isLoggedIn]= useLoginContext();
-  console.log(isLoggedIn);
+  const [isLoggedIn] = useLoginContext();
+  const [categoryData] = useCategoryContext();
+  const [topCardData, setTopCardData] = useState([]);
+
+  useEffect(() => {
+    const categoryFilterDummy = [];
+    for (let item = 0; item < categoryData.length; item++) {
+      if (
+        categoryData[item].categoryName !==
+        (categoryData[item + 1] ? categoryData[item + 1].categoryName : null)
+      ) {
+        categoryData[item]["checked"] = false;
+        categoryFilterDummy.push({
+          categoryName: categoryData[item].categoryName,
+        });
+      }
+    }
+    setTopCardData(categoryFilterDummy);
+  }, [categoryData]);
+
   return (
     <div className="homePg">
       {/* <!-- ................BASE CONTAINER............. --> */}
       <div className="baseContainer">
         {/* <!-- ................NAV BAR............. --> */}
-        <NavBar login={isLoggedIn? true:false} />
+        <NavBar login={isLoggedIn ? true : false} />
         {/* <!-- ................NAV BAR............. --> */}
         {/* <!-- ................PAGE CONTENT ............................... --> */}
 
         <div className="pageContent">
           <div className="top-preview">
-            <TopCard />
-            <TopCard />
-            <TopCard />
-            <TopCard />
-            <TopCard />
+            {topCardData
+              ? topCardData.map((item, key) => {
+                  if (key < 5) {
+                    return <TopCard data={item.categoryName} />;
+                  }
+                })
+              : () => {
+                  return (
+                    <>
+                      <TopCard />
+                      <TopCard />
+                      <TopCard />
+                      <TopCard />
+                      <TopCard />
+                    </>
+                  );
+                }}
           </div>
           <div className="center-preview">
             <div className="center-img-container">
