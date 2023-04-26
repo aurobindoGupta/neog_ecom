@@ -12,7 +12,7 @@ const NavBar = (props) => {
   const [cartValue, setCartValue] = useCartContext();
   const [wishlistValue, setWishlistValue] = useWishlistContext();
   const [searchBarInput, setSearchBarInput] = useNavSearchContext();
-  const [isLoggedIn, setIsLoggedIn] = useLoginContext();
+  const [, setIsLoggedIn] = useLoginContext();
 
   let navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -43,7 +43,7 @@ const NavBar = (props) => {
         className={`userProfile-Dropdown ${dropdownDisplay ? null : "hidden"}`}
         onMouseLeave={() => setDropdownDisplay(false)}
       >
-        <button className="btn btn-link dropdown-btn">
+        <button className="btn btn-link dropdown-btn" onClick={()=>{navigate('/profilePg')}}>
           {userData ? userData.firstName : null}
         </button>
         <button
