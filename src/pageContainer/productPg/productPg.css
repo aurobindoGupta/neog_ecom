@@ -3,6 +3,9 @@
   height: 100%;
   width: 100%;
 }
+.productPg{
+  width: 100%;
+}
 .product-content {
   display: flex;
   width: 100%;

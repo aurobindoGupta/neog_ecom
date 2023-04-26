@@ -13,6 +13,7 @@ import { useLoginContext } from "./context/loginProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
+import ProfilePg from "./pageContainer/profilePg/ProfilePg";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useLoginContext();
@@ -27,6 +28,7 @@ function App() {
         <Route element={<Protected />}>
           <Route path="/cartPg" element={<CartPg />} />
           <Route path="/wishlistPg" element={<WishListPg />} />
+          <Route path="/profilePg" element={<ProfilePg />} />
         </Route>
 
         <Route path="/loginPg" element={<LoginPg />} />
