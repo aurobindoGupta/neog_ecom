@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import "./productPg.css";
-import NavBar from "../../Components/navbar/NavBar";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { default as ProductCard } from "../../Components/product_card/Product_Card";
 import { useProductContext } from "../../context/productProvider";
 import { useCategoryContext } from "../../context/categoryProvider";
+import { useNavSearchContext } from "../../context/navSearchProvider";
+import { useLoginContext } from "../../context/loginProvider";
+import NavBar from "../../Components/navbar/NavBar";
 import priceFilterMod from "../../Components/Productfilters/priceFilterMod";
 import ratingFilterMod from "../../Components/Productfilters/ratingFilterMod";
 import sortByFilterMod from "../../Components/Productfilters/sortByFilterMod";
 import categoryFilterMod from "../../Components/Productfilters/categoryFilterMod";
-import { useNavSearchContext } from "../../context/navSearchProvider";
 import searchBarFilterMod from "../../Components/Productfilters/searchBarFilterMod";
-import { useLoginContext } from "../../context/loginProvider";
-import { useLocation } from "react-router-dom";
-import { useRef } from "react";
+import "./productPg.css";
 
 const ProductPg = () => {
   const [checkFilter, setCheckFilter] = useState([]);
@@ -33,7 +33,7 @@ const ProductPg = () => {
 
   useEffect(() => {
     if (checkFilter.length > 0) {
-      if (location.state.categoryName && locationFilter.current) {
+      if (location.state && locationFilter.current) {
         handleCheckFilter(location.state);
         locationFilter.current = false;
       }
@@ -60,7 +60,6 @@ const ProductPg = () => {
     let timeout;
     let flag = checkFilter.filter((item) => item.checked);
     clearTimeout(timeout);
-    console.log({ flag });
     if (flag.length !== 0) {
       timeout = setTimeout(() => {
         handleCategoryFilteredData();
@@ -95,7 +94,6 @@ const ProductPg = () => {
 
   //*handle search bar
   const handleSearchbBar = (searchInput) => {
-    console.log("searchInput", searchInput);
     let searchbarDummy = [];
     if (
       searchInput !== undefined &&
@@ -105,7 +103,6 @@ const ProductPg = () => {
       searchbarDummy = searchBarFilterMod(productData, searchInput);
       handleClearFilter();
     }
-    console.log(typeof searchbarDummy);
     if (searchbarDummy === -1 && searchInput !== "") {
       setSearchBarInput("");
       handleClearFilter();
@@ -118,7 +115,7 @@ const ProductPg = () => {
   const handleCheckFilter = (checkFilterDataItem) => {
     if (checkFilter.length > 0) {
       setCheckFilter(
-        [...checkFilter].map((temp) => {
+        [...checkFilter].map((temp,key) => {
           if (temp.categoryName === checkFilterDataItem.categoryName) {
             return {
               ...temp,
@@ -144,7 +141,7 @@ const ProductPg = () => {
       filteredProductDataDummy = sortByFilterMod(productData, sortByFilter);
       filteredProductDataDummy !== -1
         ? setFilteredProductData([...filteredProductDataDummy])
-        : console.log("sortby error");
+        : console.error("sortby error");
     } else if (sliderFilter !== 0) {
       filteredProductDataDummy = priceFilterMod(productData, sliderFilter);
       setFilteredProductData([...filteredProductDataDummy]);
@@ -190,7 +187,7 @@ const ProductPg = () => {
   //* handling  filter clear
   const handleClearFilter = () => {
     setCheckFilter(
-      [...checkFilter].map((temp) => {
+      [...checkFilter].map((temp,key) => {
         return {
           ...temp,
           checked: false,
@@ -404,11 +401,10 @@ const ProductPg = () => {
               <div className="product-list">
                 {filteredProductData.length > 0
                   ? Object.values(filteredProductData).map((item, key) => {
-                      return <ProductCard indiData={item} key={key} />;
+                      return <ProductCard indiData={item} id={key} />;
                     })
                   : Object.values(productData).map((item, key) => {
-                      //console.log("HELLO", filteredProductData);
-                      return <ProductCard indiData={item} key={key} />;
+                      return <ProductCard indiData={item} id={key} />;
                     })}
               </div>
             </div>
